@@ -1,0 +1,221 @@
+@font-face {
+  font-family: 'SuperLobster';
+  src: url('/src/assets/fuentes/SuperLobster.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.home-container {
+  display: flex;
+  height: 100vh;
+background: #363333;
+background: #171717;
+background: linear-gradient(180deg,rgba(23, 23, 23, 1) 0%, rgba(185, 183, 183, 1) 14%, rgba(195, 194, 194, 1) 49%, rgba(255, 255, 255, 0.91) 100%);
+}
+
+.left-section {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-image {
+  width: 28%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.dog-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.dog-image {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.dog-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ← ¡Esto es lo que necesitás! */
+  object-position: bottom right;
+  border-radius: 1rem 0 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .right-image {
+    display: none;
+  }
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 50%;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: #5C4033; /* Marrón chic */
+}
+
+.hero-content .highlight {
+  font-weight: bold;
+  color: #C16649; /* Terracota cálido */
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 50%;
+}
+
+.hero-image img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.cta-buttons {
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background-color: #C16649; /* Color acento */
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  margin-right: 1rem;
+  border: none;
+}
+
+.btn-secondary {
+  border: 2px solid #C16649;
+  color: #C16649;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  background: transparent;
+}
+
+/*LOGIN*/
+/* Tipografía moderna */
+
+
+
+/* Contenedor principal */
+.login-wrapper {
+  height: 100vh;
+  justify-content: space-evenly;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.login-title {
+  margin: 0 0 0 20px;
+  font-family: 'SuperLobster', cursive;
+  font-size: 120px!important;
+  letter-spacing: 2px;
+  color: #111;
+}
+
+/* Tarjeta */
+.login-card {
+  background: white;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 1s ease;
+  transition: transform 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Formulario */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+.login-input {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 30px;
+  padding: 12px 0;
+  font-size: 15px;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+  border-bottom: 1px solid #FF8D21;
+  outline: none;
+}
+
+/* Botón */
+.login-btn {
+  background: #111;
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-title {
+  font-family: 'SuperLobster', cursive;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  color: #222;
+}
+.login-btn:hover {
+  background: #333;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: #777;
+}
+
+.signup-text, .forgot-text {
+  margin-top: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.signup-text:hover, .forgot-text:hover {
+  color: #FF8D21;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
