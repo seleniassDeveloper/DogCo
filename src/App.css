@@ -13,6 +13,12 @@ background: #171717;
 background: linear-gradient(180deg,rgba(23, 23, 23, 1) 0%, rgba(185, 183, 183, 1) 14%, rgba(195, 194, 194, 1) 49%, rgba(255, 255, 255, 0.91) 100%);
 }
 
+.singup-container{
+  display: flex;
+  height: 100vh;
+
+  
+}
 .left-section {
   flex: 1;
   padding: 4rem;
