@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import { SingUp } from './pages/SingUp';
+import ForgotPassword from './pages/ForgotPassword';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         {/* <Route path='/register' element={<Register />} />*/}
         <Route path='/login' element={<Login/>} /> 
          <Route path='/Singup' element={<SingUp/>} /> 
+         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </AuthProvider>
   );
