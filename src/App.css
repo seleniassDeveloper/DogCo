@@ -30,6 +30,15 @@ background: linear-gradient(180deg,rgba(255, 0, 0, 1) 0%, rgba(255, 120, 120, 1)
 .forgotpassword-container h1{
     color :yellow;
 }
+.botonsearch{
+  background-color: #faac63!important;
+  border: orange 1px solid!important;
+}
+
+.botonsearch:hover{
+  background-color: #f78b26!important;
+  border: orange 1px solid!important;
+}
 
 .left-section {
   flex: 1;
@@ -137,6 +146,11 @@ background: linear-gradient(180deg,rgba(255, 0, 0, 1) 0%, rgba(255, 120, 120, 1)
   justify-content: space-evenly;
   overflow: hidden;
   padding: 2rem;
+}
+
+.titleNavbar{
+   font-family: 'SuperLobster', cursive;
+  color: #FF8D21!important;
 }
 
 .login-title {

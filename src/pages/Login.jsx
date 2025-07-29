@@ -21,7 +21,7 @@ const Login = () => {
         try {
             await iniciarSesion(email, password);
             alert("exitoso!!!");
-            navigate('/');
+            navigate('/Home');
         } catch (error) {
             setModalAlerta(true)
             console.error("Error al iniciar sesión:", error);

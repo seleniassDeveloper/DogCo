@@ -1,21 +1,28 @@
 import React from 'react';
-import '../App.css'; // Asegurate de importar el CSS
-import imgMaxi from '../assets/dalmataLogin.png';
+import { useNavigate } from 'react-router-dom';
+import { Barranavbar } from '../components/navbar/barranavbar';
+import perroNegro from '../assets/perroNegro.png'; // Asegúrate de que esté bien importada la imagen
+import '../Home.css'; 
 
-import Login from './Login';
 
-const Home = () => {
-    return (
-        <div className="home-container">
-            <div className="left-section">
-                <Login />
-            </div>
-            <div className="right-image">
-                <img src={imgMaxi} alt="Imagen de un perro" className="dog-image" />
-            </div>
+export const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <Barranavbar />
+      <div className="home-hero-container">
+        <div className="home-left">
+          <img src={perroNegro} alt="dog with flower" className="hero-dog-img" />
         </div>
-    );
+        <div className="home-right">
+          <h1 className="hero-title">como quieres <span>continuar</span> ?</h1>
+          <div className="hero-buttons">
+            <button className="donate-btn" onClick={() => navigate('/donate')}>Paseador</button>
+            <button className="learn-btn" onClick={() => navigate('/learn')}>Dueno</button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
-
-export default Home;
-
