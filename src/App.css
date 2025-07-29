@@ -252,3 +252,12 @@ background: linear-gradient(180deg,rgba(255, 0, 0, 1) 0%, rgba(255, 120, 120, 1)
     transform: translateY(0);
   }
 }
+
+.btnCerrarBotonModal{
+  background-color: #FF8D21!important;
+  border: none!important;
+}
+
+.btnCerrarBotonModal:hover{
+  background-color: #ff6a00;
+}
