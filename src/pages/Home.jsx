@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Barranavbar } from '../components/navbar/barranavbar';
 import perroNegro from '../assets/perroNegro.png'; // Asegúrate de que esté bien importada la imagen
-import '../Home.css'; 
+import '../css/Home.css'; 
 
 
 export const Home = () => {

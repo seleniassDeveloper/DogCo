@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'; // Asegurate de importar el CSS
+import '../css/App.css'; 
 import imgMaxi from '../assets/dalmataLogin.png';
 
 import Login from './Login';

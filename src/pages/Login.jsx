@@ -10,8 +10,7 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    console.log("Email:", email);
-    console.log("Password", password)
+
 
   
     const [modalalerta, setModalAlerta] = useState(false)
@@ -20,7 +19,7 @@ const Login = () => {
         e.preventDefault();
         try {
             await iniciarSesion(email, password);
-            alert("exitoso!!!");
+       
             navigate('/Home');
         } catch (error) {
             setModalAlerta(true)

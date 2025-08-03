@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import { SingUp } from './pages/SingUp';
 import ForgotPassword from './pages/ForgotPassword';
 import { Home } from './pages/Home';
+import { Perfil } from './components/perfil';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
          <Route path='/Singup' element={<SingUp/>} /> 
          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Home" element={<Home />} />
+          <Route path='Perfil' element={<Perfil />} />
       </Routes>
     </AuthProvider>
   );
