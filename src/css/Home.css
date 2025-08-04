@@ -61,3 +61,23 @@
   border-radius: 8px;
   cursor: pointer;
 }
+.rol-btn {
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid #ff8400;
+  background: transparent;
+  color: #c6674a;
+}
+
+.rol-btn:hover {
+  background-color: #ffedd5; /* suave naranja al pasar */
+}
+
+.rol-btn.active {
+  background-color: #ff8400;
+  color: white;
+  border: 2px solid #ff8400;
+}

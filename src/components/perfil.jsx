@@ -20,80 +20,76 @@ export const Perfil = () => {
 
   return (
     <div className='contenedorGenralPerfil'>
-
       <div className='contenedorPerfil'>
 
         <div className="perfil-container">
-          <div className="perfil-header d-flex justify-content-between align-items-center">
+          <div className="perfil-header">
             <h2>Selenia Sanchez</h2>
             <button className="btn-editar" onClick={() => navigate('/editar-perfil')}>
               ✏️ Editar Perfil
             </button>
           </div>
 
-          <div className='d-flex mt-3'>
-            <img
-              src={fotoPerfil}
-              alt="Foto de perfil"
-              className="perfil-img"
-            />
-            <div className='datosPerfil px-3'>
-              <div className='d-flex'>
-                <div className='caja'>
-                  <p><strong>Ciudad, País:</strong> Buenos Aires</p>
-                  <p><strong>Vivienda:</strong> Casa</p>
-                  <p><strong>Teléfono:</strong> +54 123 456 789</p>
-                </div>
-                <div className='caja'>
-                  <p><strong>Disponibilidad:</strong></p>
-                  <ul>
-                    <li>Lunes a Viernes: 8:00 - 18:00 hs</li>
-                  </ul>
-                </div>
+          <div className='perfil-body d-flex'>
+            <div>
+                <img src={fotoPerfil} alt="Foto de perfil" className="perfil-img" />
+            </div>
+            
+            <div className='datosPerfil'>
+              <div className='caja'>
+                <p><strong>Ciudad, País:</strong> Buenos Aires</p>
+                <p><strong>Vivienda:</strong> Casa</p>
+                <p><strong>Teléfono:</strong> +54 123 456 789</p>
+              </div>
+              <div className='caja'>
+                <p><strong>Disponibilidad:</strong></p>
+                <ul>
+                  <li>Lunes a Viernes: 8:00 - 18:00 hs</li>
+                </ul>
               </div>
             </div>
           </div>
 
-          <div className="perfil-info mt-3">
+          <div className="perfil-info">
             <p>
               Amante de los animales con más de 3 años de experiencia cuidando y paseando perros de todos los tamaños. Ofrezco servicio personalizado y amoroso.
             </p>
           </div>
 
-          <div className="perfil-info mt-4">
+          <div className="perfil-info">
             <h3>Servicios</h3>
             {servicios.map((servicio, index) => (
-              <div key={index} className="servicio-item mb-2">
-                <p><strong>{servicio.tipo}:</strong> {servicio.detalle}</p>
-                <p><em>Costo: {servicio.precio}</em></p>
+              <div key={index} className="servicio-item">
+                <h4>{servicio.tipo}</h4>
+                <p>{servicio.detalle}</p>
+                <span className="precio">Costo: {servicio.precio}</span>
               </div>
             ))}
           </div>
 
-          <div className="mapa-cobertura mt-4">
+          
+        </div>
+
+        <div className='contenedorReservas'>
+            <div className="mapa-cobertura py-3">
             <h4>Zona de cobertura</h4>
             <iframe
               src="https://www.google.com/maps?q=Buenos+Aires&output=embed"
               width="100%"
               height="200"
-              style={{ border: 0, borderRadius: '10px' }}
               loading="lazy"
               title="Zona de cobertura"
             ></iframe>
           </div>
-
-        </div>
-
-        <div className='contenedorReservas mt-4'>
           <ContenedorReservas />
         </div>
       </div>
 
-      <div className="ContainerResenas mt-5">
+      <div className="ContainerResenas">
         <h3>Reseñas</h3>
         {reseñas.length > 0 ? (
           reseñas.map((r, i) => (
-            <div key={i} className="reseña-item mb-3">
+            <div key={i} className="reseña-item">
               <p>{'⭐️'.repeat(r.puntaje)} ({r.puntaje}/5)</p>
               <p>"{r.texto}" - {r.autor}</p>
             </div>

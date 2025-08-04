@@ -8,6 +8,8 @@ import { SingUp } from './pages/SingUp';
 import ForgotPassword from './pages/ForgotPassword';
 import { Home } from './pages/Home';
 import { Perfil } from './components/perfil';
+import { HomePaseador } from './pages/paseador/HomePaseador';
+import { HomeDueno } from './pages/dueno/HomeDueno';
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Home" element={<Home />} />
           <Route path='Perfil' element={<Perfil />} />
+          <Route path='/HomePaseador' element={<HomePaseador />} />
+          <Route path='/HomeDueno' element={<HomeDueno />} />
       </Routes>
     </AuthProvider>
   );

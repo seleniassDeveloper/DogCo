@@ -1,9 +1,13 @@
-
+import React from 'react';
+import '../css/Navbar.css'; 
 
 export default function Navbar() {
+
+  
+
   return (
     <nav className="navbar">
-      <div className="logo">DogCo</div>
+      <div className="logo ms-3">DogCo</div>
       <ul className="nav-links">
         <li>Home</li>
         <li>About</li>

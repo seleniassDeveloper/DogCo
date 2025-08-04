@@ -1,196 +1,153 @@
 /* CONTENEDOR GENERAL */
 .contenedorGenralPerfil {
-  padding: 40px;
+  padding: 20px;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 /* PERFIL */
 .contenedorPerfil {
   display: flex;
   flex-wrap: wrap;
+  gap: 16px;
   justify-content: space-between;
-  gap: 20px;
 }
 
 .perfil-container {
-  flex: 1 1 60%;
-  background: #f8f4f1;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  flex: 1 1 58%;
+  background: #fdfdfd;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .perfil-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.perfil-img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #ffa726;
+  margin-bottom: 14px;
 }
 
 .perfil-header h2 {
-  font-size: 1.8rem;
-  color: #4c3c2c;
+  font-size: 1.1rem;
+  font-weight: 600;
   margin: 0;
-}
-
-.datosPerfil p {
-  margin: 4px 0;
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.datosPerfil strong {
   color: #222;
 }
 
-/* BOTÓN EDITAR PERFIL */
 .btn-editar {
-  background-color: #ffa726;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
+  background: none;
+  border: 1px solid #ffa726;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #ffa726;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s;
 }
 
 .btn-editar:hover {
-  background-color: #ff9400;
+  background-color: #ffa72610;
 }
 
-/* INFORMACIÓN DEL PERFIL */
+/* IMAGEN DE PERFIL */
+.perfil-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffa726;
+}
+
+.datosPerfil {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 16px;
+}
+
+.datosPerfil p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.datosPerfil strong {
+  color: #000;
+}
+
+/* INFORMACIÓN ADICIONAL */
 .perfil-info h3 {
-  font-size: 1.2rem;
-  color: #4c3c2c;
-  border-bottom: 2px solid #ffa726;
-  padding-bottom: 4px;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #444;
+  border-bottom: 1px solid #ffa726;
+  padding-bottom: 2px;
+  margin: 10px 0 6px;
 }
 
 .perfil-info p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 8px;
+  margin: 2px 0 6px;
+  font-size: 0.8rem;
 }
 
 /* SERVICIOS */
 .servicio-item {
-  background-color: #fff7f0;
-  padding: 10px;
-  border-left: 4px solid #ffa726;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  padding: 6px;
+  border-left: 3px solid #ffa726;
+  margin-bottom: 6px;
+  background: #fffdf9;
+  border-radius: 6px;
 }
 
+.servicio-item h4{
+  font-size: 15px;
+}
+.servicio-item p{
+font-size: 10px!important;
+}
 /* MAPA */
 .mapa-cobertura iframe {
-  border-radius: 12px;
-  margin-top: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  margin-top: 8px;
+  border: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
 }
 
 /* CONTENEDOR DE RESERVAS */
 .contenedorReservas {
-  flex: 1 1 35%;
-}
-
-.contenedorReservasDatepicker {
-  background: #fefaf7;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #ffe0c2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.tituloFecha {
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #4c3c2c;
-}
-
-.inputDate {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #e0c5a1;
-  background-color: #fffdfb;
-  font-size: 0.95rem;
-  color: #333;
-}
-
-.inputDate:focus {
-  border-color: #ffa726;
-  box-shadow: 0 0 0 3px rgba(255, 167, 38, 0.2);
-  outline: none;
-}
-
-.infoSeleccionada {
-  margin-top: 1rem;
-  background-color: #fff3e1;
-  border-left: 5px solid #ffa726;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: #4b3828;
-}
-
-/* CALENDARIO */
-.calendarDatepicker {
-  font-family: 'Segoe UI', sans-serif;
-  border: 1px solid #ffe1c4;
-  border-radius: 12px;
-  background-color: #fffefc;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.react-datepicker__day--in-range,
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background-color: #ffa726 !important;
-  color: white !important;
-  border-radius: 50% !important;
+  flex: 1 1 38%;
 }
 
 /* RESEÑAS */
 .ContainerResenas {
-  margin-top: 30px;
-  background: #eae7e5;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  margin-top: 24px;
+  background: #f5f5f5;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
 }
 
 .ContainerResenas h3 {
-  font-size: 1.4rem;
-  color: #4c3c2c;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .reseña-item {
-  background-color: #fffdfb;
-  border-left: 4px solid #ffa726;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  background: #fff;
+  border-left: 3px solid #ffa726;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
 .reseña-item p {
-  margin: 4px 0;
-  font-size: 0.95rem;
-  color: #333;
+  margin: 0 0 4px;
+  font-size: 0.8rem;
 }
 
 /* RESPONSIVE */
@@ -209,10 +166,14 @@
   }
 
   .btn-editar {
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .contenedorReservas {
     width: 100%;
   }
+}
+
+.servicio-item:hover, .reseña-item:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
