@@ -1,23 +1,21 @@
 /* NAVBAR */
 .navbar {
   display: flex;
+  border-bottom: #ff8400 solid 1px;
   justify-content: space-between;
-  align-items: center;
-  padding: 16px 40px;
-  background-color: #fff8f1;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  border-bottom: 1px solid #ffe0c2;
-  font-family: 'Segoe UI', sans-serif;
+  align-items: center;font-family: 'Segoe UI', sans-serif;
   position: sticky;
   top: 0;
   z-index: 1000;
+  background: #ff933b;
+background: linear-gradient(180deg,rgba(255, 147, 59, 1) 1%, rgba(238, 173, 116, 1) 37%, rgba(221, 232, 235, 0.19) 100%);
 }
 
 /* LOGO */
 .logo {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #ff8400;
+  color: #ffffff;
 }
 
 /* LINKS */
@@ -36,7 +34,7 @@
 }
 
 .nav-links li:hover {
-  color: #ff8400;
+  color: #ffffff;
 }
 
 .nav-links li::after {

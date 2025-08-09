@@ -1,9 +1,9 @@
 import React from 'react';
 import '../css/Navbar.css'; 
 
-export default function Navbar() {
+export function Navbar({ usuario }) {
 
-  
+
 
   return (
     <nav className="navbar">
@@ -17,6 +17,7 @@ export default function Navbar() {
         <li>Contact</li>
       </ul>
       <div className="social-links">
+        <a>{usuario.username}</a>
         <a href="#">IG</a>
         <a href="#">FB</a>
         <a href="#"></a>

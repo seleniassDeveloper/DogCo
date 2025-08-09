@@ -1,40 +1,85 @@
-.home-hero-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fff0e8e0;
-  padding: 4rem 6rem;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+/* Fuente: si el CSS está en src/css/Home.css, usa ruta relativa */
+@font-face {
+  font-family: 'SuperLobster';
+  src: url('../assets/fuentes/SuperLobster.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* Si la fuente está en public/assets/fuentes, usa:
+@font-face {
+  font-family: 'SuperLobster';
+  src: url('/assets/fuentes/SuperLobster.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+
+.home-hero-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,1) 0%,
+    rgba(220,203,191,1) 23%,
+    rgba(228,191,163,1) 30%,
+    rgba(255,150,69,1) 60%
+  );
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  color: #111;
+}
+
+/* Marca */
+.brand-wrap {
+  position: absolute;
+  padding: 20px;
+}
+.brand-title {
+  font-family: 'SuperLobster', cursive;
+  font-size: clamp(28px, 4vw, 48px);
+  color: #1f1f1f;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Columna izquierda (imagen) */
 .home-left {
   flex: 1;
   display: flex;
   justify-content: center;
-}
+  align-items: flex-end;
 
+}
 .hero-dog-img {
-  max-width: 100%;
-  height: auto;
+  max-height: 70vh;
+  width: auto;
   object-fit: contain;
+  padding: 0;
 }
 
+/* Columna derecha (texto y botones) */
 .home-right {
   flex: 1;
-  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
 }
 
 .hero-title {
-  font-size: 2.5rem;
-  color: #5a3c35;
+  font-size: clamp(26px, 4vw, 40px);
+  color: #111;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
-
 .hero-title span {
+  font-family: 'SuperLobster', cursive; /* aplica la fuente al span */
   font-weight: 700;
-  color: #a2402e;
+  font-size: 60px;
+  color: #ffffff; /* contrasta con el fondo cálido */
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
 }
 
 .hero-buttons {
@@ -42,42 +87,53 @@
   gap: 1rem;
 }
 
-.donate-btn {
-  background-color: #ff8400;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.learn-btn {
-  background: none;
-  border: 2px solid #ff8400;
-  padding: 0.8rem 1.5rem;
-  font-weight: bold;
-  color: #c6674a;
-  border-radius: 8px;
-  cursor: pointer;
-}
+/* Botones rol */
 .rol-btn {
   padding: 0.8rem 1.5rem;
-  font-weight: bold;
-  border-radius: 8px;
+  font-weight: 700;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: 2px solid #ff8400;
-  background: transparent;
-  color: #c6674a;
+  border: 2px solid rgba(33,33,33,0.3);
+  background: #f5f5f5;         /* base gris claro */
+  color: #1f1f1f;              /* texto oscuro */
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .rol-btn:hover {
-  background-color: #ffedd5; /* suave naranja al pasar */
+  background-color: #ff7b00;   /* acento naranja al hover */
+  color: #fff;
+  border-color: #ff7b00;
 }
 
 .rol-btn.active {
-  background-color: #ff8400;
-  color: white;
-  border: 2px solid #ff8400;
+  background: #f0f0f0;         /* blanco gris suave (lo que pediste) */
+  color: #000;
+  border-color: #cfcfcf;
+}
+
+/* Fade-out por si lo usas como clase */
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+
+/* Responsivo básico */
+@media (max-width: 900px) {
+  .home-hero-container {
+    flex-direction: column;
+    padding-top: 64px; /* deja espacio a la marca */
+  }
+  .home-left, .home-right {
+    flex: unset;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .brand-wrap {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

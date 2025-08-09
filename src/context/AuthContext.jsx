@@ -6,28 +6,89 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  query,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
 
-  const registrar = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
+  // Registro con username y nombre completo
+  const registrar = async (email, password, username, nombreCompleto) => {
+    if (!email || !password || !username || !nombreCompleto) {
+      throw new Error("Faltan campos requeridos para registrar.");
+    }
 
-  const iniciarSesion = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = cred.user.uid;
 
-  const cerrarSesion = () => signOut(auth);
-
-  const recuperarContrasena = (email) =>
-    sendPasswordResetEmail(auth, email);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (usuarioActual) => {
-      setUsuario(usuarioActual);
+    await setDoc(doc(db, "usuarios", uid), {
+      uid,
+      email,
+      username,
+      nombreCompleto,
+      rol: null,
     });
+  };
+
+  // Inicio de sesión con email o username
+  const iniciarSesion = async (identificador, password) => {
+    let email = identificador;
+
+    if (!identificador.includes("@")) {
+      const q = query(
+        collection(db, "usuarios"),
+        where("username", "==", identificador)
+      );
+      const snap = await getDocs(q);
+
+      if (snap.empty) {
+        throw new Error("Nombre de usuario no encontrado.");
+      }
+
+      email = snap.docs[0].data().email;
+    }
+
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const cerrarSesion = () => {
+    signOut(auth);
+    localStorage.removeItem("usuario");
+    setUsuario(null);
+  };
+
+  const recuperarContrasena = (email) => sendPasswordResetEmail(auth, email);
+
+  // Escuchar cambios en el usuario logueado
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (usuarioActual) => {
+      if (usuarioActual) {
+        const ref = doc(db, "usuarios", usuarioActual.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          const usuarioExtendido = { ...usuarioActual, ...snap.data() };
+          setUsuario(usuarioExtendido);
+          localStorage.setItem("usuario", JSON.stringify(usuarioExtendido));
+        } else {
+          setUsuario(usuarioActual);
+          localStorage.setItem("usuario", JSON.stringify(usuarioActual));
+        }
+      } else {
+        setUsuario(null);
+        localStorage.removeItem("usuario");
+      }
+    });
+
     return () => unsubscribe();
   }, []);
 

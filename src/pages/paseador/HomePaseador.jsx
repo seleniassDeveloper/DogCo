@@ -1,9 +1,15 @@
 import React from 'react';
 import '../../css/App.css';
 import '../../css/HomePaseador.css';
-import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/AuthContext';
+import { Navbar } from 'react-bootstrap';
 
 export const HomePaseador = () => {
+
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  console.log("Hola, ", usuario);
+
   const solicitudes = [
     { nombre: 'Ana G.', zona: 'Palermo', hora: '15:00', tipo: 'Paseo de 30 min' },
     { nombre: 'Carlos M.', zona: 'Belgrano', hora: '18:00', tipo: 'Cuidado por la tarde' },
@@ -16,7 +22,7 @@ export const HomePaseador = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar usuario={usuario} />
       <div className="dashboard-paseador">
         <h2 className="dashboard-title">👋 Bienvenido, Paseador</h2>
 
