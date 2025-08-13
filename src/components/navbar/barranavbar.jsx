@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // ajusta el path si es necesario
+import { useAuth } from '../../context/AuthContext';
+import '../../css/Navbar.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,54 +9,44 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export const Barranavbar = () => {
-    const { cerrarSesion } = useAuth();
-    const navigate = useNavigate();
+import { MensajesDropdown } from './MensajesDropdownBootstrap';
 
-    const handleLogout = async () => {
-        try {
-            await cerrarSesion();
-            navigate('/'); // o donde quieras redirigir al cerrar sesión
-        } catch (error) {
-            console.error("Error al cerrar sesión:", error);
-        }
-    };
+export const Barranavbar = ({ usuario, threads = [], onOpenChat, onMarkRead }) => {
+  const { cerrarSesion } = useAuth();
+  const navigate = useNavigate();
 
-    return (
-        <>
-            <Navbar expand="lg" className="bg-body-tertiary">
-                <Container fluid>
-                    <Navbar.Brand href="#">
-                        <h1 className="titleNavbar">DogCo</h1>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className="me-auto my-2 my-lg-0"
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        >
-                            <Nav.Link href="#action1">Home</Nav.Link>
-                            <NavDropdown title="User" id="navbarScrollingDropdown">
-                                <NavDropdown.Item onClick={() => navigate('/Perfil')} href="#action4">Perfil</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={handleLogout}>
-                                    Cerrar Sesión
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
-                        <Form className="d-flex">
-                            <Form.Control
-                                type="search"
-                                placeholder="Search"
-                                className="me-2"
-                                aria-label="Search"
-                            />
-                            <Button className='botonsearch'>🔍</Button>
-                        </Form>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
-    );
+  const handleLogout = async () => {
+    try { await cerrarSesion(); navigate('/'); }
+    catch (error) { console.error('Error al cerrar sesión:', error); }
+  };
+
+  return (
+    <Navbar expand="lg" className="navbar">
+      <Container fluid>
+        <Navbar.Brand href="#"><h1 className="logo">DogCo</h1></Navbar.Brand>
+
+        <Navbar.Toggle />
+        <Navbar.Collapse >
+          <Nav  navbarScroll>
+            <MensajesDropdown
+              threads={threads}
+              onOpenChat={onOpenChat}
+              onMarkRead={onMarkRead}
+            />
+
+            <NavDropdown title={usuario?.nombreCompleto || 'User'} id="navbarScrollingDropdown">
+              <NavDropdown.Item onClick={() => navigate('/Perfil')}>Perfil</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+
+          <Form className="d-flex">
+            <Form.Control type="search" placeholder="Search" aria-label="Search" />
+            <Button className="botonsearch">🔍</Button>
+          </Form>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 };

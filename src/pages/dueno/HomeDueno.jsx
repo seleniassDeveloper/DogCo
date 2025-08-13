@@ -1,11 +1,11 @@
 // src/pages/HomeDueno/HomeDueno.jsx
 import React, { useEffect, useRef } from 'react';
 import '../../css/HomeDueno.css';
-import { Navbar } from '../../components/Navbar';
 import { gsap } from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDog, faHouse, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { Reservas } from '../../components/DashboardDueno/reservas';
+import { Barranavbar } from '../../components/navbar/barranavbar';
 
 export const HomeDueno = () => {
   // -------- Datos de ejemplo --------
@@ -148,9 +148,9 @@ export const HomeDueno = () => {
 
   return (
     <div ref={rootRef} className="home-dueno-container">
-      <Navbar usuario={usuario} />
+      <Barranavbar usuario={usuario} />
 
-      {/* -------- Servicios -------- */}
+   
       <div className="px-5">
         <section className="wave-section">
           <div className="servicios-grid px-3">

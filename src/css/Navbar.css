@@ -30,7 +30,7 @@
 /* LOGO */
 /* LOGO */
 .logo {
-  font-family: 'SuperLobster', cursive;
+  font-family: 'SuperLobster', cursive!important;
   font-size: 2.2rem;
   font-weight: normal;
   

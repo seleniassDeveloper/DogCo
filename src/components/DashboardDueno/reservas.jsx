@@ -94,14 +94,14 @@ export const Reservas = ({
               Reprogramar
             </button>
             <button
-              className="btn "
+              className="btn Cancelar"
               onClick={() => onCancelar?.(proxima)}
               aria-label="Cancelar la reserva"
             >
               Cancelar
             </button>
             <button
-              className="btn"
+              className="btn Chat"
               onClick={() => onChat?.(proxima)}
               aria-label="Abrir chat con el cuidador"
             >
