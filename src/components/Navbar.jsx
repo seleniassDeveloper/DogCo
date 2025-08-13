@@ -1,13 +1,11 @@
 import React from 'react';
-import '../css/Navbar.css'; 
+import '../css/Navbar.css';
 
 export function Navbar({ usuario }) {
-
-
-
   return (
-    <nav className="navbar">
-      <div className="logo ms-3">DogCo</div>
+    <nav className="navbar px-4">
+      <div className="logo">DogCo</div>
+
       <ul className="nav-links">
         <li>Home</li>
         <li>About</li>
@@ -16,11 +14,11 @@ export function Navbar({ usuario }) {
         <li>Donate</li>
         <li>Contact</li>
       </ul>
+
       <div className="social-links">
-        <a>{usuario.username}</a>
+        <span className="username">{usuario.username}</span>
         <a href="#">IG</a>
         <a href="#">FB</a>
-        <a href="#"></a>
       </div>
     </nav>
   );

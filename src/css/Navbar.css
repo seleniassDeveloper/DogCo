@@ -1,33 +1,61 @@
+/* Fuente personalizada */
+@font-face {
+  font-family: 'SuperLobster';
+  src: url('../assets/fuentes/SuperLobster.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* NAVBAR */
 .navbar {
   display: flex;
-  border-bottom: #ff8400 solid 1px;
   justify-content: space-between;
-  align-items: center;font-family: 'Segoe UI', sans-serif;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: #ff933b;
-background: linear-gradient(180deg,rgba(255, 147, 59, 1) 1%, rgba(238, 173, 116, 1) 37%, rgba(221, 232, 235, 0.19) 100%);
+  padding: 0.5rem 2rem;
+
+  /* Degradado más suave y elegante */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 147, 59, 1) 0%,
+    rgba(238, 173, 116, 1) 40%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(8px);
 }
 
 /* LOGO */
+/* LOGO */
 .logo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-family: 'SuperLobster', cursive;
+  font-size: 2.2rem;
+  font-weight: normal;
+  
+  
+  
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+
+  letter-spacing: 1px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s ease, text-shadow 0.25s ease, background 0.4s ease;
 }
+
 
 /* LINKS */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 24px;
+  gap: 2rem;
 }
 
 .nav-links li {
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 500;
   color: #5a3c35;
   position: relative;
   transition: color 0.3s ease;
@@ -55,16 +83,24 @@ background: linear-gradient(180deg,rgba(255, 147, 59, 1) 1%, rgba(238, 173, 116,
 /* SOCIAL LINKS */
 .social-links {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.username {
+  color: #5a3c35;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .social-links a {
   text-decoration: none;
   color: #c6674a;
   font-size: 0.9rem;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .social-links a:hover {
   color: #ff8400;
+  transform: translateY(-2px);
 }
