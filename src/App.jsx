@@ -10,6 +10,7 @@ import { Home } from './pages/Home';
 import { Perfil } from './components/perfil';
 import { HomePaseador } from './pages/paseador/HomePaseador';
 import { HomeDueno } from './pages/dueno/HomeDueno';
+import { Chat } from './components/navbar/chat';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='Perfil' element={<Perfil />} />
           <Route path='/HomePaseador' element={<HomePaseador />} />
           <Route path='/HomeDueno' element={<HomeDueno />} />
+              <Route path='/Chat' element={<Chat />} />
       </Routes>
     </AuthProvider>
   );

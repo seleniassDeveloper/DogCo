@@ -1,3 +1,4 @@
+// (TU MISMO ARCHIVO) MensajesDropdown.jsx
 import React, { useEffect, useMemo, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge';
@@ -6,33 +7,23 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Stack from 'react-bootstrap/Stack';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
-/** Thread shape:
- * {
- *   id, nombre, avatarUrl?,
- *   mensajes: [{ id, texto, ts:number|Date, from:'me'|'them', read:boolean }]
- * }
- */
 export const MensajesDropdown = ({ threads = [], onOpenChat, onMarkRead }) => {
+
+  const navigate = useNavigate();
+
   const [local, setLocal] = useState(() => threads.length ? threads : [
-    {
-      id: 'c1',
-      nombre: 'Juan P.',
-      mensajes: [
-        { id: 'm1', texto: '¿Confirmamos 10am?', ts: Date.now() - 1000*60*40, from: 'them', read: false },
-        { id: 'm2', texto: 'Sí, perfecto.',    ts: Date.now() - 1000*60*35, from: 'me',   read: true  },
-      ],
-    },
-    {
-      id: 'c2',
-      nombre: 'María G.',
-      mensajes: [{ id: 'm3', texto: '¿Traes su juguete?', ts: Date.now() - 1000*60*120, from: 'them', read: false }],
-    },
-    {
-      id: 'c3',
-      nombre: 'Soporte DogCo',
-      mensajes: [{ id: 'm4', texto: 'Tu caso fue actualizado ✅', ts: Date.now() - 1000*60*300, from: 'them', read: true }],
-    },
+    { id: 'c1', nombre: 'Juan P.', mensajes: [
+      { id: 'm1', texto: '¿Confirmamos 10am?', ts: Date.now()-1000*60*40, from:'them', read:false },
+      { id: 'm2', texto: 'Sí, perfecto.',     ts: Date.now()-1000*60*35, from:'me',   read:true  },
+    ]},
+    { id: 'c2', nombre: 'María G.', mensajes: [
+      { id: 'm3', texto: '¿Traes su juguete?', ts: Date.now()-1000*60*120, from:'them', read:false },
+    ]},
+    { id: 'c3', nombre: 'Soporte DogCo', mensajes: [
+      { id: 'm4', texto: 'Tu caso fue actualizado ✅', ts: Date.now()-1000*60*300, from:'them', read:true },
+    ]},
   ]);
 
   useEffect(() => { if (threads.length) setLocal(threads); }, [threads]);
@@ -48,19 +39,29 @@ export const MensajesDropdown = ({ threads = [], onOpenChat, onMarkRead }) => {
   const totalUnread = useMemo(() => ordered.reduce((a,t) => a + t._unread, 0), [ordered]);
   const formatTime = (ts) => ts ? new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
 
-  const markThreadRead = (id) => {
-    setLocal(prev => prev.map(th =>
-      th.id === id
-        ? { ...th, mensajes: th.mensajes.map(m => m.from === 'them' ? { ...m, read: true } : m) }
-        : th
-    ));
-    const th = local.find(t => t.id === id);
-    if (th) onMarkRead?.(th);
+  // --- NUEVO: devuelve el thread actualizado (leído) y actualiza estado
+  const markThreadReadAndGet = (id) => {
+    let updated = null;
+    setLocal(prev => prev.map(th => {
+      if (th.id !== id) return th;
+      const mensajes = th.mensajes.map(m => m.from === 'them' ? { ...m, read: true } : m);
+      updated = { ...th, mensajes };
+      return updated;
+    }));
+    if (updated) onMarkRead?.(updated);
+    return updated;
   };
 
+  // --- NUEVO: abrir chat -> marca leído y llama onOpenChat con el thread ya actualizado
+const handleOpenChat = (th) => {
+  const actualizado = markThreadReadAndGet(th.id) || th;
+  onOpenChat?.(actualizado);
+  navigate('/Chat');
+};
+
   return (
-    <Dropdown  className="me-2">
-      <Dropdown.Toggle as="div" id="dd-mensajes"  style={{ cursor:'pointer' }}>
+    <Dropdown className="me-2">
+      <Dropdown.Toggle as="div" id="dd-mensajes" style={{ cursor:'pointer' }}>
         <FontAwesomeIcon icon={faEnvelope} size="lg" />
         {totalUnread > 0 && (
           <Badge bg="dark" pill className="  translate-middle">
@@ -80,8 +81,13 @@ export const MensajesDropdown = ({ threads = [], onOpenChat, onMarkRead }) => {
         ) : (
           <ListGroup variant="flush">
             {ordered.map(th => (
-              <ListGroup.Item key={th.id} className={`d-flex align-items-start ${th._unread ? 'bg-light' : ''}`}>
-                {/* Avatar */}
+              // 👉 SIN CAMBIAR CLASES: solo añado "action" y onClick para abrir/leer
+              <ListGroup.Item
+                key={th.id}
+                action
+                onClick={() => handleOpenChat(th)}
+                className={`d-flex align-items-start ${th._unread ? 'bg-light' : ''}`}
+              >
                 {th.avatarUrl ? (
                   <img src={th.avatarUrl} alt={th.nombre} width={42} height={42} className="rounded me-2 object-fit-cover" />
                 ) : (
@@ -93,7 +99,6 @@ export const MensajesDropdown = ({ threads = [], onOpenChat, onMarkRead }) => {
                   </div>
                 )}
 
-                {/* Contenido */}
                 <div className="flex-grow-1">
                   <div className="d-flex align-items-center">
                     <div className="fw-semibold">{th.nombre}</div>
@@ -104,10 +109,13 @@ export const MensajesDropdown = ({ threads = [], onOpenChat, onMarkRead }) => {
                   </div>
                   <div className="d-flex align-items-center mt-1">
                     {th._unread > 0 && <Badge bg="dark" pill className="me-2">{th._unread}</Badge>}
-                    <Button size="sm" variant="outline-secondary" onClick={() => markThreadRead(th.id)} disabled={th._unread === 0}>
-                      Marcar leído
-                    </Button>
-                    <Button size="sm" className="ms-auto" onClick={() => onOpenChat?.(th)} variant="primary">
+                    {/* 👉 Botón existente: ahora también marca leído antes de abrir */}
+                    <Button
+                      size="sm"
+                      className="ms-auto"
+                      onClick={(e) => { e.stopPropagation(); handleOpenChat(th); }}
+                      variant="primary"
+                    >
                       Abrir chat
                     </Button>
                   </div>

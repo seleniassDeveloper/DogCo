@@ -1,0 +1,52 @@
+.chat-container{
+ font-size: 10px;
+   
+}
+
+.cajageneralchat{
+  /* border: rgba(16, 203, 16, 0.951) 1px solid; */
+
+}
+
+.mensaje{
+    border-bottom: grey 1px solid;
+    /* border: solid greenyellow 2px; */
+}
+
+.btn.ps-3 {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn.ps-3:hover {
+  background-color: #f0f0f0; /* color de fondo */
+  transform: translateX(-4px); /* pequeño movimiento */
+  color: #ff9d00; /* cambia el color del texto */
+}
+
+.cajasolochat{
+     width: 70%;
+    border-radius: 15px;
+    border: solid 1px #80808063;
+    /* border: black 2px solid; */
+    width: 70%;
+/* border: solid 3px black; */
+}
+
+.listachat{
+    width: 30%;
+    border-radius: 15px;
+box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
+-webkit-box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
+-moz-box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
+    /* border: solid 2px rgb(255, 0, 195); */
+}
+
+.listachat img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.cajachat{
+       
+}

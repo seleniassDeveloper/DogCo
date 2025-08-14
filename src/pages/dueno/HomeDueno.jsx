@@ -173,18 +173,18 @@ export const HomeDueno = () => {
         </section>
       </div>
 
-      {/* -------- Reservas (Hero + Lista) -------- */}
+ 
       <div className="px-5 d-flex w-100">
         <Reservas
           reservas={reservas}
-          // para animar las filas "otras reservas"
+
           addReservaRef={addReservaRef}
           beforeRenderClearRefs={() => {
             reservasRef.current.length = 0;
           }}
-          // para animar el hero desde el padre
+ 
           setHeroRef={setHeroRef}
-          // acciones
+
           onVerDetalles={onVerDetalles}
           onReprogramar={onReprogramar}
           onCancelar={onCancelar}
