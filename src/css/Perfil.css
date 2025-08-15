@@ -1,179 +1,265 @@
-/* CONTENEDOR GENERAL */
+/* ====== VARIABLES ====== */
+:root {
+  --bg: #fafafa;
+  --card-bg: #fff;
+  --text: #444;
+  --text-strong: #222;
+  --muted: #6b7280;
+  --brand: #ff9800;
+  --brand-2: #ffb84d;
+  --brand-soft: #fff8f0;
+  --brand-soft-2: #ffedd5;
+  --border: rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+/* ====== GENERAL ====== */
 .contenedorGenralPerfil {
   padding: 20px;
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
+  color: var(--text);
   font-size: 0.85rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  background: var(--bg);
 }
 
-/* PERFIL */
+.text-muted { color: var(--muted); }
+
+/* ====== PERFIL LAYOUT ====== */
 .contenedorPerfil {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
   justify-content: space-between;
 }
 
+/* ====== CONTENEDOR PRINCIPAL ====== */
 .perfil-container {
   flex: 1 1 58%;
-  background: #fdfdfd;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s ease;
+}
+.perfil-container:hover {
+  box-shadow: var(--shadow-lg);
 }
 
+/* ====== HEADER PERFIL ====== */
 .perfil-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
 }
-
 .perfil-header h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin: 0;
-  color: #222;
+  color: var(--text-strong);
 }
 
+/* Badge verificado */
+.badge-verified {
+  display: inline-block;
+  margin-left: .5rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e8fff3;
+  color: #0a7a45;
+  font-size: .7rem;
+  vertical-align: middle;
+  border: 1px solid #bff0d6;
+}
+
+/* Botón editar */
 .btn-editar {
-  background: none;
-  border: 1px solid #ffa726;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  color: #ffa726;
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-2);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--brand);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
-
 .btn-editar:hover {
-  background-color: #ffa72610;
+  background-color: var(--brand-soft-2);
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+.btn-editar:focus {
+  outline: 3px solid rgba(255, 152, 0, .35);
+  outline-offset: 2px;
 }
 
-/* IMAGEN DE PERFIL */
+/* ====== FOTO PERFIL ====== */
 .perfil-img {
-  width: 90px;
-  height: 90px;
+  width: 92px;
+  height: 92px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ffa726;
+  border: 2px solid var(--brand-2);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
 }
 
+/* ====== DATOS PERFIL ====== */
 .datosPerfil {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-left: 16px;
 }
-
 .datosPerfil p {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
 }
-
 .datosPerfil strong {
-  color: #000;
+  color: #111;
 }
 
-/* INFORMACIÓN ADICIONAL */
+/* ====== INFORMACIÓN ADICIONAL ====== */
 .perfil-info h3 {
   font-size: 0.9rem;
-  color: #444;
-  border-bottom: 1px solid #ffa726;
-  padding-bottom: 2px;
-  margin: 10px 0 6px;
+  color: #555;
+  border-bottom: 2px solid var(--brand-2);
+  padding-bottom: 3px;
+  margin: 14px 0 8px;
 }
-
 .perfil-info p {
-  margin: 2px 0 6px;
-  font-size: 0.8rem;
+  margin: 2px 0 8px;
+  font-size: 0.82rem;
+  color: #555;
 }
 
-/* SERVICIOS */
+/* ====== SERVICIOS ====== */
+.servicios-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
 .servicio-item {
-  padding: 6px;
-  border-left: 3px solid #ffa726;
-  margin-bottom: 6px;
-  background: #fffdf9;
-  border-radius: 6px;
+  display: block;
+  padding: 10px 12px;
+  border-left: 3px solid var(--brand);
+  margin: 0;
+  background: #fffaf3;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border);
+}
+.servicio-item:hover {
+  background: #fff4e5;
+  box-shadow: 0 3px 10px rgba(255, 152, 0, 0.08);
+}
+.servicio-item:focus {
+  outline: 3px solid rgba(255,152,0,.35);
+  outline-offset: 2px;
 }
 
-.servicio-item h4{
+.servicio-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.servicio-item h4 {
   font-size: 15px;
+  margin: 0;
 }
-.servicio-item p{
-font-size: 10px!important;
+.servicio-item p {
+  font-size: 11px !important;
+  margin: 0;
 }
-/* MAPA */
+.chip {
+  display: inline-block;
+  font-size: .72rem;
+  border-radius: 999px;
+  padding: 2px 8px;
+  background: var(--brand-soft);
+  color: var(--text-strong);
+  border: 1px solid var(--brand-2);
+}
+.chip-price {
+  background: #fff3d6;
+  border-color: #ffd18a;
+}
+
+/* Estado vacío */
+.estado-vacio {
+  font-size: .82rem;
+  color: var(--muted);
+  background: #fff;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* ====== MAPA ====== */
 .mapa-cobertura iframe {
   width: 100%;
-  height: 160px;
-  border-radius: 8px;
+  height: 170px;
+  border-radius: 10px;
   margin-top: 8px;
   border: none;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* CONTENEDOR DE RESERVAS */
+/* ====== RESERVAS (columna derecha) ====== */
 .contenedorReservas {
   flex: 1 1 38%;
 }
 
-/* RESEÑAS */
+/* ====== RESEÑAS ====== */
 .ContainerResenas {
   margin-top: 24px;
-  background: #f5f5f5;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 0.8rem;
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
-
 .ContainerResenas h3 {
   font-size: 0.95rem;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
-
 .reseña-item {
-  background: #fff;
-  border-left: 3px solid #ffa726;
-  padding: 8px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  background: #fffefc;
+  border-left: 3px solid var(--brand);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border);
 }
-
+.reseña-item:hover {
+  background: #fff6e6;
+  box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+}
+.reseña-item:focus {
+  outline: 3px solid rgba(255,152,0,.35);
+  outline-offset: 2px;
+}
 .reseña-item p {
   margin: 0 0 4px;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
 }
 
-/* RESPONSIVE */
+/* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
-  .contenedorPerfil {
-    flex-direction: column;
-  }
-
-  .perfil-img {
-    margin-bottom: 10px;
-  }
-
-  .perfil-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .btn-editar {
-    margin-top: 8px;
-  }
-
-  .contenedorReservas {
-    width: 100%;
-  }
-}
-
-.servicio-item:hover, .reseña-item:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  .contenedorGenralPerfil { padding: 14px; }
+  .contenedorPerfil { flex-direction: column; }
+  .perfil-img { margin-bottom: 10px; }
+  .perfil-header { flex-direction: column; text-align: center; gap: 8px; }
+  .perfil-container { padding: 16px; }
+  .contenedorReservas { width: 100%; }
 }
