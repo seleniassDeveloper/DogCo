@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/Perfil.css';
 import { useNavigate } from 'react-router-dom';
 import { ContenedorReservas } from './perfil/contenedorReservas';
@@ -6,6 +6,8 @@ import fotoPerfil from '../assets/fotoSeleniaPerfil.jpeg';
 
 export const Perfil = () => {
   const navigate = useNavigate();
+
+  const [validacionServicion, setValidacionServicios] = useState(true)
 
   // --- Datos de ejemplo (conéctalos a tu backend cuando quieras) ---
   const verificado = true;
@@ -163,7 +165,7 @@ export const Perfil = () => {
           </div>
 
           {/* SERVICIOS */}
-          <div className="perfil-info">
+          {validacionServicion ? <div> </div> :   <div className="perfil-info">
             <h3>Servicios</h3>
             {servicios.length === 0 ? (
               <div className="estado-vacio">No hay servicios cargados aún.</div>
@@ -181,9 +183,11 @@ export const Perfil = () => {
                 ))}
               </ul>
             )}
-          </div>
+          </div> }
+        
 
-          {/* DATOS DEL DUEÑO DETALLADO */}
+          <div className='d-flex'>
+   {/* DATOS DEL DUEÑO DETALLADO */}
           <div className="perfil-info">
             <h3>Datos del dueño</h3>
 
@@ -304,6 +308,9 @@ export const Perfil = () => {
               ))
             )}
           </div>
+          </div>
+
+       
 
           {/* PREFERENCIAS DE RESERVA */}
           <div className="perfil-info">
