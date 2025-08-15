@@ -22,10 +22,11 @@ export const Barranavbar = ({ usuario, threads = [], onOpenChat, onMarkRead }) =
 
   return (
     <Navbar expand="lg" className="navbar">
-      <Container fluid>
+      <Container fluid className='d-flex'>
         <Navbar.Brand href="#"><h1 className="logo">DogCo</h1></Navbar.Brand>
 
-        <Navbar.Toggle />
+<div>
+      <Navbar.Toggle />
         <Navbar.Collapse >
           <Nav  navbarScroll>
             <MensajesDropdown
@@ -46,6 +47,8 @@ export const Barranavbar = ({ usuario, threads = [], onOpenChat, onMarkRead }) =
             <Button className="botonsearch">🔍</Button>
           </Form>
         </Navbar.Collapse>
+</div>
+    
       </Container>
     </Navbar>
   );

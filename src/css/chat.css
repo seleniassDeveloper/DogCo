@@ -1,52 +1,67 @@
-.chat-container{
- font-size: 10px;
-   
-}
+/* Layout base */
+.chat-container { font-size: 14px; background: #f7f7fb; }
+.cajageneralchat { gap: 16px; }
 
-.cajageneralchat{
-  /* border: rgba(16, 203, 16, 0.951) 1px solid; */
-
-}
-
-.mensaje{
-    border-bottom: grey 1px solid;
-    /* border: solid greenyellow 2px; */
-}
-
-.btn.ps-3 {
-  transition: all 0.2s ease-in-out;
-}
-
-.btn.ps-3:hover {
-  background-color: #f0f0f0; /* color de fondo */
-  transform: translateX(-4px); /* pequeño movimiento */
-  color: #ff9d00; /* cambia el color del texto */
-}
-
-.cajasolochat{
-     width: 70%;
-    border-radius: 15px;
-    border: solid 1px #80808063;
-    /* border: black 2px solid; */
-    width: 70%;
-/* border: solid 3px black; */
-}
-
+/* Columna izquierda (bandeja) */
 .listachat{
-    width: 30%;
-    border-radius: 15px;
-box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
--webkit-box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
--moz-box-shadow: 0px 0px 16px 1px rgba(0,0,0,0.61);
-    /* border: solid 2px rgb(255, 0, 195); */
+  width: 28%;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+}
+.lista-scroll { max-height: calc(100vh - 220px); overflow:auto; padding-right: 4px; }
+.thread-card{
+  border: 1px solid rgba(0,0,0,0.06);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.thread-card:hover{ transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+.thread-card.active{ background: #eef2ff; border-color: rgba(0,0,0,0.12); }
+.thread-avatar{ width: 40px; height: 40px; border-radius: 12px; object-fit: cover; }
+
+/* Columna central (chat) */
+.cajasolochat{
+  width: 50%;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column;
+}
+.cajachat{ overflow-y: auto; background: #fafafa; max-height: calc(100vh - 280px); }
+.header-actions .btn{ border-radius: 10px; }
+
+/* Burbujas */
+.bubble{
+  max-width: 72%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.bubble.mine{ background: #4f46e5; color: #fff; border-top-right-radius: 4px; }
+.bubble.theirs{ background: #fff; border: 1px solid rgba(0,0,0,0.08); border-top-left-radius: 4px; }
+.bubble .time{ opacity:.7; font-size: .78rem; }
+
+/* Typing */
+.bubble.typing { display: inline-flex; gap: 6px; align-items: center; }
+.bubble.typing .dot{ width:6px; height:6px; border-radius:999px; background:#999; display:inline-block; animation: blink 1s infinite; }
+.bubble.typing .dot:nth-child(2){ animation-delay:.15s; }
+.bubble.typing .dot:nth-child(3){ animation-delay:.3s; }
+@keyframes blink { 0%, 80%, 100%{ opacity:.2 } 40%{ opacity:1 } }
+
+/* Columna derecha (detalles) */
+.panelinfo{
+  width: 22%;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
 }
 
-.listachat img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.cajachat{
-       
-}
+/* Botón volver (tu hover existente) */
+.btn.ps-3 { transition: all 0.2s ease-in-out; }
+.btn.ps-3:hover { background:#f0f0f0; transform: translateX(-4px); color:#ff9d00; }
