@@ -20,35 +20,39 @@ export const Barranavbar = ({ usuario, threads = [], onOpenChat, onMarkRead }) =
     catch (error) { console.error('Error al cerrar sesión:', error); }
   };
 
+  const handleClickDash = () => {
+    navigate('/HomeDueno')
+  }
+
   return (
     <Navbar expand="lg" className="navbar">
       <Container fluid className='d-flex'>
-        <Navbar.Brand href="#"><h1 className="logo">DogCo</h1></Navbar.Brand>
+        <Navbar.Brand href="#"><h1 className="logo" onClick={() => handleClickDash()}>DogCo</h1></Navbar.Brand>
 
-<div>
-      <Navbar.Toggle />
-        <Navbar.Collapse >
-          <Nav  navbarScroll>
-            <MensajesDropdown
-              threads={threads}
-              onOpenChat={onOpenChat}
-              onMarkRead={onMarkRead}
-            />
+        <div>
+          <Navbar.Toggle />
+          <Navbar.Collapse >
+            <Nav navbarScroll>
+              <MensajesDropdown
+                threads={threads}
+                onOpenChat={onOpenChat}
+                onMarkRead={onMarkRead}
+              />
 
-            <NavDropdown title={usuario?.nombreCompleto || 'User'} id="navbarScrollingDropdown">
-              <NavDropdown.Item onClick={() => navigate('/Perfil')}>Perfil</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+              <NavDropdown title={usuario?.nombreCompleto || 'User'} id="navbarScrollingDropdown">
+                <NavDropdown.Item onClick={() => navigate('/Perfil')}>Perfil</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
 
-          <Form className="d-flex">
-            <Form.Control type="search" placeholder="Search" aria-label="Search" />
-            <Button className="botonsearch">🔍</Button>
-          </Form>
-        </Navbar.Collapse>
-</div>
-    
+            <Form className="d-flex">
+              <Form.Control type="search" placeholder="Search" aria-label="Search" />
+              <Button className="botonsearch">🔍</Button>
+            </Form>
+          </Navbar.Collapse>
+        </div>
+
       </Container>
     </Navbar>
   );
