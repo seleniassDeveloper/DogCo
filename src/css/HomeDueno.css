@@ -1,107 +1,269 @@
-/* Grid servicios: asegúrate de tener un layout limpio */
-.servicios-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  padding: 1rem 0;
+/* ===== Layout base ===== */
+.home-dueno-container {
+  background: #fafafa;
+  min-height: 100vh;
 }
 
+.home-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr; /* Columna A más ancha */
+  gap: 16px;
+}
 
-/* Card servicio con base neutra para que el hover se note */
-.servicio-card {
-  background: #ffffff;
-  border: 1px solid rgba(17,17,17,0.06);
+.colA, .colB { display: flex; flex-direction: column; gap: 16px; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .home-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Tarjetas genéricas ===== */
+.home-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
   border-radius: 14px;
-  padding: 16px;
-  transition: 
-    background 0.2s ease, 
-    border-color 0.2s ease,
-    transform 0.25s ease, 
-    box-shadow 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 14px rgba(0,0,0,.04);
+  padding: 14px;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ===== Badges de estado (Confirmado, Pendiente, etc.) ===== */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+.state-success   { background: #E9F7EF; color: #1e7d44; } /* Confirmado */
+.state-warning   { background: #FFF7E6; color: #9a6000; } /* Pendiente */
+.state-primary   { background: #E8F1FF; color: #0b63ce; } /* Activo */
+.state-secondary { background: #F1F1F1; color: #666; }    /* Cancelado */
+
+/* ===== KPI cards ===== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.kpi-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 12px;
+  padding: 12px;
+}
+.kpi-title { font-size: .78rem; color: #666; }
+.kpi-value { font-size: 1.15rem; font-weight: 700; }
+.kpi-value small { font-size: .75rem; margin-left: 6px; }
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===== Hero próxima reserva ===== */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hero-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: .92rem;
+}
+.hero-when, .hero-type, .hero-sitter, .hero-pets {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fafafa;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* ===== Botones cortos / chips ===== */
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  gap: 8px;
+}
+@media (max-width: 1200px) { .qa-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .qa-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.qa-btn {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: .9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: .18s ease;
+}
+.qa-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+
+.btn-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #0b63ce;
+  font-weight: 600;
   cursor: pointer;
 }
+.btn-link:hover { text-decoration: underline; }
 
-.servicio-card:hover {
-  color: #f57c00;
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-  border-color: rgba(245,124,0,0.3);
+/* ===== Chips filtros ===== */
+.filters { display: flex; gap: 8px; margin-left: auto; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px; font-size: .8rem;
+  background: #f4f6f8; border: 1px solid rgba(0,0,0,.06); color: #333;
+}
+.chip.is-active { background: #E8F1FF; color: #0b63ce; border-color: #cfe0ff; }
+
+/* ===== Estado en vivo ===== */
+.progress-steps {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
+}
+.step { display: inline-flex; align-items: center; gap: 8px; color: #999; font-size: .86rem; }
+.step .dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; }
+.step.done { color: #0b63ce; }
+.step.done .dot { background: #0b63ce; }
+.live-bar {
+  display: flex; align-items: center; gap: 12px;
+  background: #f6faff; border: 1px solid #e6f0ff;
+  border-radius: 10px; padding: 8px 10px; margin-bottom: 8px;
+}
+.live-stream { display: grid; gap: 6px; }
+.live-item {
+  background: #fff; border: 1px solid rgba(0,0,0,.06);
+  border-radius: 8px; padding: 8px 10px;
 }
 
-/* Animación para el icono */
-.servicio-card .icon {
-  font-size: 28px;
-  display: inline-block;
-  margin-bottom: 8px;
-  transition: transform 0.3s ease, color 0.3s ease;
+/* ===== Calendario mini (placeholder) ===== */
+.calendar-mini { margin-top: 8px; }
+.calendar-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.calendar-day {
+  background: #fff; border: 1px solid rgba(0,0,0,.06);
+  border-radius: 10px; text-align: center; padding: 10px 6px; font-size: .85rem;
 }
+.calendar-day.is-cta { cursor: pointer; background: #fff8f0; border-color: #ffdfb3; }
+.calendar-day.is-cta:hover { background: #ffedd5; }
+.calendar-day.disabled { opacity: .5; }
 
-.servicio-card:hover .icon {
-  transform: scale(1.15) rotate(-5deg);
-  color: #f57c00;
-}
-
-.servicio-card h4 {
-  margin: 10px 0 6px;
-  font-weight: 700;
-  color: #1a1a1a;
-  transition: color 0.3s ease;
-}
-
-.servicio-card:hover h4 {
-  color: #f57c00;
-}
-
-.servicio-card p {
-  color: #444;
-  margin: 0 0 12px;
-  transition: color 0.3s ease;
-}
-
-.servicio-card:hover p {
-  color: #666;
-}
-/* Lista reservas */
-.home-card {
-  font-size: 13px;
-  /* border: red solid 1px; */
+/* ===== Mensajes preview ===== */
+.msg-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.msg-item {
+  position: relative;
+  border: 1px solid rgba(0,0,0,.06);
   background: #fff;
-  border: 1px solid rgba(17,17,17,0.06);
-  border-radius: 14px;
-  padding: 16px;
-  max-width: 300px;
-  margin: 16px 10px;
-}
-
-.home-card .btn{
-  border: #f57c00 solid 2px;
-  margin: 1px 3px 1px 0px;
-  font-size: 10px;
-}
-
-.home-card .btn:hover{
-  background-color: #f57c00;
-  color: white;
-}
-
-.titulosh{
-  color: #f57c00;
-}
-
-.reserva-item {
-  padding: 10px 8px;
   border-radius: 10px;
-  transition: background 0.2s ease;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: .16s ease;
 }
-.reserva-item + .reserva-item {
-  border-top: 1px dashed rgba(0,0,0,0.08);
+.msg-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.msg-item.has-unread { border-color: #cfe0ff; background: #f6faff; }
+.msg-name { font-weight: 700; font-size: .92rem; }
+.msg-preview { color: #666; font-size: .86rem; }
+.msg-badge {
+  position: absolute; right: 10px; top: 8px;
+  background: #0b63ce; color: #fff; border-radius: 999px;
+  font-size: .72rem; padding: 2px 7px; font-weight: 700;
 }
-.servicio-card .icon {
-  font-size: 28px; /* controla el tamaño del FontAwesomeIcon */
-  display: inline-block;
 
-}
+/* ===== Mascotas resumen ===== */
+.pets-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (max-width: 768px) { .pets-grid { grid-template-columns: 1fr; } }
 
-.estado.confirmado { color: #2e7d32; font-weight: 700; }
-.estado.pendiente  { color: #4100f5; font-weight: 700; }
+.pet-card {
+  display: grid; grid-template-columns: 92px 1fr; gap: 10px;
+  background: #fff; border: 1px solid rgba(0,0,0,.06); border-radius: 12px; overflow: hidden;
+}
+.pet-card img { width: 100%; height: 100%; object-fit: cover; }
+.pet-body { padding: 8px 10px; }
+.pet-name { font-weight: 700; }
+.pet-meta { color: #666; font-size: .85rem; margin-bottom: 6px; }
+.progress { background: #f1f3f5; border-radius: 999px; height: 8px; overflow: hidden; }
+.progress.small { height: 6px; }
+.progress-bar { background: linear-gradient(90deg,#0b63ce,#4ea3ff); height: 100%; }
+
+/* ===== Pagos ===== */
+.pay-method { font-weight: 600; margin-bottom: 8px; }
+.receipt-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.receipt-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #fff; border: 1px solid rgba(0,0,0,.06); border-radius: 10px; padding: 8px 10px;
+}
+.r-concept { font-weight: 600; }
+.r-date { color: #666; font-size: .8rem; }
+.r-right { display: flex; gap: 10px; align-items: center; }
+.r-amount { font-weight: 700; }
+
+/* ===== Timeline historial ===== */
+.timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+.tl-item { position: relative; padding-left: 24px; margin: 10px 0; }
+.tl-item::before {
+  content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #eee;
+}
+.tl-dot {
+  position: absolute; left: 2px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%; background: #0b63ce;
+}
+.tl-head { display: flex; align-items: center; gap: 8px; }
+.tl-head .tl-date { margin-left: auto; color: #666; font-size: .8rem; }
+.tl-notes { color: #444; font-size: .9rem; }
+
+/* ===== Promos & soporte ===== */
+.promo {
+  background: #fff8f0; border: 1px solid #ffdfb3; color: #9a6000;
+  padding: 8px 10px; border-radius: 10px;
+}
+.support-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+/* ===== Servicios grid (tu bloque original con hover) ===== */
+.servicios-grid {
+  display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 992px) { .servicios-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 576px) { .servicios-grid { grid-template-columns: 1fr; } }
+
+.servicio-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  padding: 12px;
+  transition: .18s ease;
+}
+.servicio-card .icon { margin-right: 8px; }
+.servicio-card h4 { margin: 0; font-size: 1rem; }
+.servicio-card p { margin: 6px 0 0; color: #666; }
+
+/* ===== Empty states ===== */
+.empty {
+  text-align: center;
+  padding: 16px;
+  border: 1px dashed rgba(0,0,0,.12);
+  border-radius: 12px;
+  background: #fff;
+}
+.empty-title { font-weight: 700; margin-bottom: 8px; }
