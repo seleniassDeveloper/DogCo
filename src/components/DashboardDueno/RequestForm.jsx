@@ -1,52 +1,114 @@
-// src/components/DashboardDueno/RequestForm.jsx
 import React, { useState } from 'react';
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
-export default function RequestForm({ open, onClose, onSubmit, mascotas }) {
-  const [form, setForm] = useState({ fecha: '', hora: '', zona: '', mascotaId: mascotas?.[0]?.id || '' });
+const RequestForm = ({ open, onClose, onSubmit, mascotas = [] }) => {
+  const [form, setForm] = useState({
+    mascotaId: mascotas[0]?.id || '',
+    tipo: 'Paseo',
+    fecha: '',
+    hora: '',
+    zona: '',
+    notas: '',
+  });
 
-  if (!open) return null;
-  const update = (k, v) => setForm(s => ({ ...s, [k]: v }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // mock id y estado
+    const id = 'req_' + Math.random().toString(36).slice(2, 8);
+    const startISO = form.fecha && form.hora ? `${form.fecha}T${form.hora}:00` : null;
+
     onSubmit?.({
-      id: Math.floor(Math.random() * 100000),
-      tipo: 'Paseo',
-      estado: 'Pendiente',
-      start: `${form.fecha}T${form.hora}:00-05:00`,
-      end: `${form.fecha}T${form.hora}:00-05:00`,
-      zona: form.zona,
+      id,
       mascotaId: form.mascotaId,
+      tipo: form.tipo,
+      start: startISO,
+      zona: form.zona,
+      notas: form.notas,
+      estado: 'Publicada',
+      createdAt: Date.now(),
     });
+
     onClose?.();
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h3 className="card-title">Nueva solicitud</h3>
-        <form onSubmit={handleSubmit} className="form-grid">
-          <label>Fecha
-            <input type="date" required value={form.fecha} onChange={e => update('fecha', e.target.value)} />
-          </label>
-          <label>Hora
-            <input type="time" required value={form.hora} onChange={e => update('hora', e.target.value)} />
-          </label>
-          <label>Zona
-            <input type="text" placeholder="Barrio / dirección aproximada" required value={form.zona} onChange={e => update('zona', e.target.value)} />
-          </label>
-          <label>Mascota
-            <select value={form.mascotaId} onChange={e => update('mascotaId', e.target.value)}>
-              {mascotas.map(m => <option key={m.id} value={m.id}>{m.nombre}</option>)}
-            </select>
-          </label>
-          <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
-            <button type="submit" className="qa-btn">Publicar</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Modal show={open} onHide={onClose} centered backdrop="static" keyboard>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <i className="bi bi-dog me-2" />
+            Nueva solicitud
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Row className="g-3">
+            <Col xs={12}>
+              <Form.Label>Mascota</Form.Label>
+              <Form.Select name="mascotaId" value={form.mascotaId} onChange={handleChange}>
+                {mascotas.map((m) => (
+                  <option key={m.id} value={m.id}>{m.nombre}</option>
+                ))}
+              </Form.Select>
+            </Col>
+
+            <Col xs={12}>
+              <Form.Label>Tipo</Form.Label>
+              <Form.Select name="tipo" value={form.tipo} onChange={handleChange}>
+                <option>Paseo</option>
+                <option>Cuidado en casa</option>
+                <option>Adiestramiento</option>
+              </Form.Select>
+            </Col>
+
+            <Col sm={6}>
+              <Form.Label>Fecha</Form.Label>
+              <Form.Control type="date" name="fecha" value={form.fecha} onChange={handleChange} />
+            </Col>
+
+            <Col sm={6}>
+              <Form.Label>Hora</Form.Label>
+              <Form.Control type="time" name="hora" value={form.hora} onChange={handleChange} />
+            </Col>
+
+            <Col xs={12}>
+              <Form.Label>Zona</Form.Label>
+              <Form.Control
+                name="zona"
+                placeholder="Barrio o referencia"
+                value={form.zona}
+                onChange={handleChange}
+              />
+            </Col>
+
+            <Col xs={12}>
+              <Form.Label>Notas</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="notas"
+                value={form.notas}
+                onChange={handleChange}
+                placeholder="Indica detalles, alergias, etc."
+              />
+            </Col>
+          </Row>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>Cancelar</Button>
+          <Button type="submit" variant="primary">
+            <i className="bi bi-send me-1" />
+            Publicar
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
-}
+};
+
+export default RequestForm;

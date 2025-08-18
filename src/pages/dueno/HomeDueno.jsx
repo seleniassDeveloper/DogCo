@@ -2,18 +2,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import '../../css/HomeDueno.css';
 import { gsap } from 'gsap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faDog, faHouse, faGraduationCap, faChevronRight, faPlus, faRepeat, faLocationDot,
-  faTicket, faComments, faEllipsis, faCalendarDays, faClock, faCircleCheck, faCirclePause,
-  faCirclePlay, faCircleXmark, faCreditCard, faReceipt, faGift, faLifeRing
-} from '@fortawesome/free-solid-svg-icons';
 
 // Navbar y (opcional) otros componentes existentes
 import { Barranavbar } from "../../components/navbar/barranavbar";
 // import { Reservas } from "../../components/DashboardDueno/reservas";
 
-// NUEVOS componentes (añade sus archivos según la guía)
+// Componentes
 import OwnerProfileCard from '../../components/DashboardDueno/OwnerProfileCard';
 import RequestForm from '../../components/DashboardDueno/RequestForm';
 import RequestList from '../../components/DashboardDueno/RequestList';
@@ -198,11 +192,11 @@ export const HomeDueno = () => {
     <div className="home-card">
       <h3 className="card-title">Acciones rápidas</h3>
       <div className="qa-grid">
-        <button className="qa-btn" onClick={abrirNuevaSolicitud}><FontAwesomeIcon icon={faDog} /> Nueva solicitud</button>
-        <button className="qa-btn" onClick={() => alert('Repetir última reserva')}><FontAwesomeIcon icon={faRepeat} /> Repetir última</button>
-        <button className="qa-btn" onClick={() => alert('Añadir mascota')}><FontAwesomeIcon icon={faPlus} /> Añadir mascota</button>
-        <button className="qa-btn" onClick={() => alert('Agregar dirección')}><FontAwesomeIcon icon={faLocationDot} /> Agregar dirección</button>
-        <button className="qa-btn" onClick={() => alert('Aplicar cupón')}><FontAwesomeIcon icon={faTicket} /> Aplicar cupón</button>
+        <button className="qa-btn" onClick={abrirNuevaSolicitud}><i className="bi bi-dog"></i> Nueva solicitud</button>
+        <button className="qa-btn" onClick={() => alert('Repetir última reserva')}><i className="bi bi-arrow-repeat"></i> Repetir última</button>
+        <button className="qa-btn" onClick={() => alert('Añadir mascota')}><i className="bi bi-plus-circle"></i> Añadir mascota</button>
+        <button className="qa-btn" onClick={() => alert('Agregar dirección')}><i className="bi bi-geo-alt"></i> Agregar dirección</button>
+        <button className="qa-btn" onClick={() => alert('Aplicar cupón')}><i className="bi bi-ticket"></i> Aplicar cupón</button>
       </div>
     </div>
   );
@@ -224,8 +218,8 @@ export const HomeDueno = () => {
           ))}
         </div>
         <div className="live-bar">
-          <FontAwesomeIcon icon={faClock} /> Tiempo restante: 42 min
-          <button className="btn-link ms-auto"><FontAwesomeIcon icon={faEllipsis} /> Ver detalles</button>
+          <i className="bi bi-clock"></i> Tiempo restante: 42 min
+          <button className="btn-link ms-auto"><i className="bi bi-three-dots"></i> Ver detalles</button>
         </div>
         <div className="live-stream">
           <div className="live-item">📸 Foto: Luna en el parque</div>
@@ -238,7 +232,7 @@ export const HomeDueno = () => {
   const CalendarMini = () => (
     <div className="home-card">
       <div className="card-head">
-        <h3 className="card-title"><FontAwesomeIcon icon={faCalendarDays} /> Calendario y disponibilidad</h3>
+        <h3 className="card-title"><i className="bi bi-calendar-event"></i> Calendario y disponibilidad</h3>
         <div className="filters">
           <button className="chip is-active">Paseo</button>
           <button className="chip">Cuidado en casa</button>
@@ -270,7 +264,7 @@ export const HomeDueno = () => {
           <h3 className="card-title">Mensajes</h3>
           {proxima && (
             <button className="btn-link" onClick={() => onChat(proxima)}>
-              Chat con {proxima.cuidador} <FontAwesomeIcon icon={faComments} />
+              Chat con {proxima.cuidador} <i className="bi bi-chat-dots"></i>
             </button>
           )}
         </div>
@@ -313,7 +307,7 @@ export const HomeDueno = () => {
 
   const PaymentsCard = () => (
     <div className="home-card">
-      <h3 className="card-title"><FontAwesomeIcon icon={faCreditCard} /> Pagos</h3>
+      <h3 className="card-title"><i className="bi bi-credit-card"></i> Pagos</h3>
       <div className="pay-method">{pagos.metodo}</div>
       <ul className="receipt-list">
         {pagos.ultimos.map(r => (
@@ -324,14 +318,14 @@ export const HomeDueno = () => {
             </div>
             <div className="r-right">
               <div className="r-amount">${r.monto}</div>
-              <a href={r.receiptUrl} className="btn-link"><FontAwesomeIcon icon={faReceipt} /> Descargar</a>
+              <a href={r.receiptUrl} className="btn-link"><i className="bi bi-receipt"></i> Descargar</a>
             </div>
           </li>
         ))}
       </ul>
       <div className="d-flex gap-2 mt-2">
-        <button className="qa-btn"><FontAwesomeIcon icon={faPlus} /> Añadir método</button>
-        <button className="qa-btn"><FontAwesomeIcon icon={faReceipt} /> Ver facturas</button>
+        <button className="qa-btn"><i className="bi bi-plus-circle"></i> Añadir método</button>
+        <button className="qa-btn"><i className="bi bi-receipt"></i> Ver facturas</button>
       </div>
     </div>
   );
@@ -351,7 +345,7 @@ export const HomeDueno = () => {
               <div className="tl-notes">{h.notas}</div>
               {h.reseñaPendiente && (
                 <button className="btn-link" onClick={abrirRate}>
-                  Calificar paseador <FontAwesomeIcon icon={faChevronRight} />
+                  Calificar paseador <i className="bi bi-chevron-right"></i>
                 </button>
               )}
             </div>
@@ -363,7 +357,7 @@ export const HomeDueno = () => {
 
   const PromosReferrals = () => (
     <div className="home-card">
-      <h3 className="card-title"><FontAwesomeIcon icon={faGift} /> Promos & referidos</h3>
+      <h3 className="card-title"><i className="bi bi-gift"></i> Promos & referidos</h3>
       <div className="promo">
         Cupón activo: <strong>ADOPTA10</strong> (10% OFF)
       </div>
@@ -373,7 +367,7 @@ export const HomeDueno = () => {
 
   const SupportCard = () => (
     <div className="home-card">
-      <h3 className="card-title"><FontAwesomeIcon icon={faLifeRing} /> Soporte</h3>
+      <h3 className="card-title"><i className="bi bi-life-preserver"></i> Soporte</h3>
       <div className="support-grid">
         <button className="qa-btn">Centro de ayuda</button>
         <button className="qa-btn">Contacto urgente</button>
@@ -415,24 +409,24 @@ export const HomeDueno = () => {
             {!proxima ? (
               <div className="empty">
                 <div className="empty-title">No tienes reservas próximas</div>
-                <button className="qa-btn" onClick={abrirNuevaSolicitud}><FontAwesomeIcon icon={faDog} /> Nueva solicitud</button>
+                <button className="qa-btn" onClick={abrirNuevaSolicitud}><i className="bi bi-dog"></i> Nueva solicitud</button>
               </div>
             ) : (
               <div className="hero">
                 <div className="hero-row">
-                  <div className="hero-when"><FontAwesomeIcon icon={faCalendarDays} /> {formatDT(proxima.start)}</div>
+                  <div className="hero-when"><i className="bi bi-calendar-event"></i> {formatDT(proxima.start)}</div>
                   <div className="hero-type">{proxima.tipo}</div>
                 </div>
                 <div className="hero-row">
-                  <div className="hero-sitter"><FontAwesomeIcon icon={faComments} /> {proxima.cuidador}</div>
+                  <div className="hero-sitter"><i className="bi bi-chat-dots"></i> {proxima.cuidador}</div>
                   <div className="hero-pets">Mascotas: {proxima.mascotas.join(', ')}</div>
                 </div>
                 <div className="hero-actions">
-                  <button className="qa-btn" onClick={() => onVerDetalles(proxima)}><FontAwesomeIcon icon={faCircleCheck} /> Ver detalles</button>
-                  <button className="qa-btn" onClick={() => onReprogramar(proxima)}><FontAwesomeIcon icon={faCalendarDays} /> Reprogramar</button>
-                  <button className="qa-btn" onClick={() => onCancelar(proxima)}><FontAwesomeIcon icon={faCircleXmark} /> Cancelar</button>
-                  <button className="qa-btn" onClick={() => onChat(proxima)}><FontAwesomeIcon icon={faComments} /> Chat</button>
-                  <button className="qa-btn" onClick={() => onPropina(proxima)}><FontAwesomeIcon icon={faPlus} /> Agregar propina</button>
+                  <button className="qa-btn" onClick={() => onVerDetalles(proxima)}><i className="bi bi-check-circle"></i> Ver detalles</button>
+                  <button className="qa-btn" onClick={() => onReprogramar(proxima)}><i className="bi bi-calendar-event"></i> Reprogramar</button>
+                  <button className="qa-btn" onClick={() => onCancelar(proxima)}><i className="bi bi-x-circle"></i> Cancelar</button>
+                  <button className="qa-btn" onClick={() => onChat(proxima)}><i className="bi bi-chat-dots"></i> Chat</button>
+                  <button className="qa-btn" onClick={() => onPropina(proxima)}><i className="bi bi-plus-circle"></i> Agregar propina</button>
                 </div>
               </div>
             )}
@@ -474,25 +468,25 @@ export const HomeDueno = () => {
       </div>
 
       {/* Modales / Drawer */}
-      <RequestForm
-        open={showRequestForm}
-        onClose={() => setShowRequestForm(false)}
-        onSubmit={onSubmitRequest}
-        mascotas={mascotas}
-      />
+     <RequestForm
+  open={showRequestForm}
+  onClose={() => setShowRequestForm(false)}
+  onSubmit={onSubmitRequest}
+  mascotas={mascotas}
+/>
 
-      <RateWalkerModal
-        open={showRate}
-        onClose={() => setShowRate(false)}
-        walkerName="Juan P."
-        onRate={(r) => console.log('rating enviado', r)}
-      />
+<RateWalkerModal
+  open={showRate}
+  onClose={() => setShowRate(false)}
+  walkerName="Juan P."
+  onRate={(r) => console.log('rating enviado', r)}
+/>
 
-      <ChatMock
-        open={chatOpen}
-        onClose={() => setChatOpen(false)}
-        thread={chatThread}
-      />
+<ChatMock
+  open={chatOpen}
+  onClose={() => setChatOpen(false)}
+  thread={chatThread}
+/>
 
       {/* (Opcional) otras reservas con animación GSAP */}
       {/* <div className="px-5 mt-3">
@@ -509,3 +503,5 @@ export const HomeDueno = () => {
     </div>
   );
 };
+
+export default HomeDueno;

@@ -11,6 +11,9 @@ import { Perfil } from './components/perfil';
 import { HomePaseador } from './pages/paseador/HomePaseador';
 import { HomeDueno } from './pages/dueno/HomeDueno';
 import { Chat } from './components/navbar/chat';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 const App = () => {
   return (

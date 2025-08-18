@@ -1,44 +1,36 @@
-// src/components/DashboardDueno/RequestList.jsx
 import React from 'react';
 
-const badgeClass = (estado) => ({
-  Pendiente: 'state-warning',
-  Aceptada: 'state-success',
-  Completada: 'state-primary',
-  Cancelada: 'state-secondary',
-}[estado] || 'state-secondary');
+const fmt = (iso) => iso ? new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
 
-export default function RequestList({ requests = [], onCancel }) {
+const RequestList = ({ requests = [], onCancel }) => {
+  if (!requests.length) return null;
+
   return (
     <div className="home-card">
-      <div className="card-head">
-        <h3 className="card-title">Mis solicitudes</h3>
+      <h3 className="card-title">Solicitudes publicadas</h3>
+      <div className="request-list">
+        {requests.map(r => (
+          <div key={r.id} className="request-item">
+            <div>
+              <div className="r-head"><strong>{r.tipo}</strong> · {r.mascotaNombre || r.mascotaId}</div>
+              <div className="r-sub">
+                <i className="bi bi-calendar-event"></i> {fmt(r.start)} &nbsp;·&nbsp;
+                <i className="bi bi-geo-alt"></i> {r.zona || '—'}
+              </div>
+            </div>
+            <div className="d-flex" style={{ alignItems: 'center', gap: 8 }}>
+              <span className="badge state-primary">{r.estado}</span>
+              {r.estado !== 'Cancelada' && (
+                <button className="btn-link" onClick={() => onCancel?.(r)}>
+                  <i className="bi bi-x-circle"></i> Cancelar
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
-      {requests.length === 0 ? (
-        <div className="empty">
-          <div className="empty-title">No tienes solicitudes activas</div>
-          <div className="empty-sub">Publica una para ver paseadores disponibles.</div>
-        </div>
-      ) : (
-        <ul className="request-list">
-          {requests.map(r => (
-            <li key={r.id} className="request-item">
-              <div>
-                <div className="r-head">
-                  <strong>{r.tipo}</strong> · <span>{new Date(r.start).toLocaleString()}</span>
-                </div>
-                <div className="r-sub">Mascota: {r.mascotaNombre || r.mascotaId} · Zona: {r.zona || '—'}</div>
-              </div>
-              <div className="r-actions">
-                <span className={`badge ${badgeClass(r.estado)}`}>{r.estado}</span>
-                {r.estado === 'Pendiente' && (
-                  <button className="btn-link" onClick={() => onCancel?.(r)}>Cancelar</button>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
-}
+};
+
+export default RequestList;
