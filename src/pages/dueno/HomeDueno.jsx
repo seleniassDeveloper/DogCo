@@ -9,18 +9,20 @@ import {
   faCirclePlay, faCircleXmark, faCreditCard, faReceipt, faGift, faLifeRing
 } from '@fortawesome/free-solid-svg-icons';
 
-
+// Navbar y (opcional) otros componentes existentes
 import { Barranavbar } from "../../components/navbar/barranavbar";
-import { Reservas } from "../../components/DashboardDueno/reservas";
+// import { Reservas } from "../../components/DashboardDueno/reservas";
+
+// NUEVOS componentes (añade sus archivos según la guía)
+import OwnerProfileCard from '../../components/DashboardDueno/OwnerProfileCard';
+import RequestForm from '../../components/DashboardDueno/RequestForm';
+import RequestList from '../../components/DashboardDueno/RequestList';
+import RateWalkerModal from '../../components/DashboardDueno/RateWalkerModal';
+import ChatMock from '../../components/DashboardDueno/ChatMock';
+
 export const HomeDueno = () => {
   // ====== Datos DEMO (conecta a tu backend cuando quieras) ======
   const usuario = { nombreCompleto: 'Selenia Sanchez', username: 'seleinasanchez', rol: 'dueno' };
-
-  const servicios = [
-    { tipo: 'Paseo', descripcion: '30 o 60 minutos con paseador confiable', icono: faDog },
-    { tipo: 'Cuidado en casa', descripcion: 'Dejá tu mascota por el día o por horas', icono: faHouse },
-    { tipo: 'Adiestramiento', descripcion: 'Entrenamiento básico personalizado', icono: faGraduationCap },
-  ];
 
   const reservas = [
     {
@@ -88,6 +90,13 @@ export const HomeDueno = () => {
     { id: 'h2', fecha: '2025-07-28', tipo: 'Cuidado en casa', cuidador: 'María G.', foto: '', notas: 'Excelente', reseñaPendiente: true },
   ];
 
+  // ====== Estado UI adicional ======
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [requests, setRequests] = useState([]); // solicitudes publicadas (mock)
+  const [showRate, setShowRate] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatThread, setChatThread] = useState(null);
+
   // ====== Helpers ======
   const now = new Date();
   const proxima = useMemo(() => {
@@ -115,7 +124,7 @@ export const HomeDueno = () => {
     Cancelado: 'secondary',
   }[estado] || 'secondary');
 
-  // ====== Animaciones GSAP previas ======
+  // ====== Animaciones GSAP ======
   const rootRef = useRef(null);
   const serviciosRef = useRef([]);
   const reservasRef = useRef([]);
@@ -142,14 +151,26 @@ export const HomeDueno = () => {
   // ====== Actions ======
   const onVerDetalles = (r) => alert(`Detalles de la reserva #${r.id} con ${r.cuidador}`);
   const onReprogramar = (r) => alert(`Reprogramar reserva #${r.id}`);
-  const onCancelar = (r) => confirm('¿Seguro que deseas cancelar esta reserva?') && alert(`Reserva #${r.id} cancelada`);
-  const onChat = (r) => alert(`Abrir chat con ${r.cuidador}`);
+  const onCancelar = (r) => window.confirm('¿Seguro que deseas cancelar esta reserva?') && alert(`Reserva #${r.id} cancelada`);
   const onPropina = (r) => alert(`Agregar propina a ${r.cuidador}`);
-  const reservarCTA = () => alert('Reservar paseo');
-  const repetirUltima = () => alert('Repetir última reserva');
-  const addMascota = () => alert('Añadir mascota');
-  const addDireccion = () => alert('Agregar dirección');
-  const aplicarCupon = () => alert('Aplicar cupón');
+
+  const abrirNuevaSolicitud = () => setShowRequestForm(true);
+  const onSubmitRequest = (req) => {
+    const mascota = mascotas.find(m => m.id === req.mascotaId);
+    setRequests(prev => [{ ...req, mascotaNombre: mascota?.nombre }, ...prev]);
+  };
+  const onCancelRequest = (r) => {
+    if (window.confirm('¿Cancelar esta solicitud?')) {
+      setRequests(prev => prev.map(x => x.id === r.id ? { ...x, estado: 'Cancelada' } : x));
+    }
+  };
+
+  const abrirRate = () => setShowRate(true);
+  const abrirChat = (thread) => { setChatThread(thread); setChatOpen(true); };
+  const onChat = (r) => {
+    const th = mensajesThreads.find(t => t.nombre === r.cuidador) || mensajesThreads[0];
+    abrirChat(th);
+  };
 
   // ====== Sub-componentes rápidos (inline) ======
   const KPICards = () => (
@@ -177,11 +198,11 @@ export const HomeDueno = () => {
     <div className="home-card">
       <h3 className="card-title">Acciones rápidas</h3>
       <div className="qa-grid">
-        <button className="qa-btn" onClick={reservarCTA}><FontAwesomeIcon icon={faDog} /> Reservar paseo</button>
-        <button className="qa-btn" onClick={repetirUltima}><FontAwesomeIcon icon={faRepeat} /> Repetir última</button>
-        <button className="qa-btn" onClick={addMascota}><FontAwesomeIcon icon={faPlus} /> Añadir mascota</button>
-        <button className="qa-btn" onClick={addDireccion}><FontAwesomeIcon icon={faLocationDot} /> Agregar dirección</button>
-        <button className="qa-btn" onClick={aplicarCupon}><FontAwesomeIcon icon={faTicket} /> Aplicar cupón</button>
+        <button className="qa-btn" onClick={abrirNuevaSolicitud}><FontAwesomeIcon icon={faDog} /> Nueva solicitud</button>
+        <button className="qa-btn" onClick={() => alert('Repetir última reserva')}><FontAwesomeIcon icon={faRepeat} /> Repetir última</button>
+        <button className="qa-btn" onClick={() => alert('Añadir mascota')}><FontAwesomeIcon icon={faPlus} /> Añadir mascota</button>
+        <button className="qa-btn" onClick={() => alert('Agregar dirección')}><FontAwesomeIcon icon={faLocationDot} /> Agregar dirección</button>
+        <button className="qa-btn" onClick={() => alert('Aplicar cupón')}><FontAwesomeIcon icon={faTicket} /> Aplicar cupón</button>
       </div>
     </div>
   );
@@ -228,7 +249,7 @@ export const HomeDueno = () => {
         {/* Placeholder: aquí puedes montar un calendario real (react-big-calendar, etc.) */}
         <div className="calendar-row">
           <div className="calendar-day">Lun</div>
-          <div className="calendar-day is-cta" onClick={reservarCTA}>Mar<br /><small>Programar</small></div>
+          <div className="calendar-day is-cta" onClick={abrirNuevaSolicitud}>Mar<br /><small>Programar</small></div>
           <div className="calendar-day">Mié</div>
           <div className="calendar-day">Jue</div>
           <div className="calendar-day">Vie</div>
@@ -247,16 +268,15 @@ export const HomeDueno = () => {
       <div className="home-card">
         <div className="card-head">
           <h3 className="card-title">Mensajes</h3>
-          {/* acceso directo al chat del paseador de la próxima reserva */}
           {proxima && (
-            <button className="btn-link" onClick={() => alert(`Abrir chat con ${proxima.cuidador}`)}>
+            <button className="btn-link" onClick={() => onChat(proxima)}>
               Chat con {proxima.cuidador} <FontAwesomeIcon icon={faComments} />
             </button>
           )}
         </div>
         <ul className="msg-list">
           {ordered.map(th => (
-            <li key={th.id} className={`msg-item ${th.unread ? 'has-unread' : ''}`} onClick={() => alert(`Abrir chat ${th.nombre}`)}>
+            <li key={th.id} className={`msg-item ${th.unread ? 'has-unread' : ''}`} onClick={() => abrirChat(th)}>
               <div className="msg-name">{th.nombre}</div>
               <div className="msg-preview">{th.last?.texto}</div>
               {th.unread > 0 && <span className="msg-badge">{th.unread}</span>}
@@ -330,7 +350,9 @@ export const HomeDueno = () => {
               </div>
               <div className="tl-notes">{h.notas}</div>
               {h.reseñaPendiente && (
-                <button className="btn-link">Calificar paseador <FontAwesomeIcon icon={faChevronRight} /></button>
+                <button className="btn-link" onClick={abrirRate}>
+                  Calificar paseador <FontAwesomeIcon icon={faChevronRight} />
+                </button>
               )}
             </div>
           </li>
@@ -365,7 +387,12 @@ export const HomeDueno = () => {
     <div ref={rootRef} className="home-dueno-container">
       <Barranavbar usuario={usuario} />
 
-      {/* KPIs arriba */}
+      {/* Perfil del dueño */}
+      <div className="px-5 mt-3">
+        <OwnerProfileCard owner={{ ...usuario, foto: null, zona: 'Palermo', rating: 4.8 }} />
+      </div>
+
+      {/* KPIs */}
       <div className="px-5 mt-3">
         <KPICards />
       </div>
@@ -374,7 +401,6 @@ export const HomeDueno = () => {
       <div className="px-5 home-grid mt-3">
         {/* === Columna A === */}
         <div className="colA">
-
           {/* 1) Hero Próxima reserva */}
           <section className="home-card" ref={setHeroRef}>
             <div className="card-head">
@@ -389,7 +415,7 @@ export const HomeDueno = () => {
             {!proxima ? (
               <div className="empty">
                 <div className="empty-title">No tienes reservas próximas</div>
-                <button className="qa-btn" onClick={reservarCTA}><FontAwesomeIcon icon={faDog} /> Reservar paseo</button>
+                <button className="qa-btn" onClick={abrirNuevaSolicitud}><FontAwesomeIcon icon={faDog} /> Nueva solicitud</button>
               </div>
             ) : (
               <div className="hero">
@@ -441,10 +467,34 @@ export const HomeDueno = () => {
 
           {/* 10) Soporte */}
           <SupportCard />
+
+          {/* Lista de solicitudes publicadas (mock) */}
+          <RequestList requests={requests} onCancel={onCancelRequest} />
         </div>
       </div>
 
-      {/* (Opcional) tu componente de “otras reservas” reutilizando refs/animación */}
+      {/* Modales / Drawer */}
+      <RequestForm
+        open={showRequestForm}
+        onClose={() => setShowRequestForm(false)}
+        onSubmit={onSubmitRequest}
+        mascotas={mascotas}
+      />
+
+      <RateWalkerModal
+        open={showRate}
+        onClose={() => setShowRate(false)}
+        walkerName="Juan P."
+        onRate={(r) => console.log('rating enviado', r)}
+      />
+
+      <ChatMock
+        open={chatOpen}
+        onClose={() => setChatOpen(false)}
+        thread={chatThread}
+      />
+
+      {/* (Opcional) otras reservas con animación GSAP */}
       {/* <div className="px-5 mt-3">
         <Reservas
           reservas={reservas}
@@ -454,7 +504,6 @@ export const HomeDueno = () => {
           onVerDetalles={onVerDetalles}
           onReprogramar={onReprogramar}
           onCancelar={onCancelar}
-          onChat={onChat}
         />
       </div> */}
     </div>
