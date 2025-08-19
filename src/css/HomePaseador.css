@@ -383,3 +383,243 @@ select:focus-visible {
   outline-offset: 2px;
   border-radius: 10px;
 }
+
+
+/* ===========================
+   NearbyRequestsList (tema claro + acentos naranjas)
+   =========================== */
+
+.card-section {
+  background: #fff;
+  border: 1px solid var(--border, #eef2f6);
+  border-radius: var(--radius-lg, 14px);
+  padding: clamp(14px, 1.6vw, 18px);
+  box-shadow: var(--glass, 0 6px 22px rgba(16,24,40,.06));
+}
+
+.card-section .card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2d3b;
+  margin: 0 0 10px;
+}
+.card-section .card-title .bi {
+  color: var(--brand, #ff8a00);
+  font-size: 1.1rem;
+}
+
+/* Items */
+.card-item {
+  background: #fffdf8;
+  border: 1px solid #ffe6c7;
+  border-left: 4px solid var(--brand, #ff8a00);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  transition: transform .12s ease, box-shadow .18s ease, background .18s;
+}
+.card-item:hover {
+  transform: translateY(-1px);
+  background: #fffaf2;
+  box-shadow: 0 6px 18px rgba(255,138,0,.10);
+}
+
+.muted {
+  color: #6b7b8c;
+  font-size: .9rem;
+  margin-top: 2px;
+}
+
+/* Fila de acciones a la derecha */
+.row-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.gap-6 { gap: 6px; }
+
+.mt-2 { margin-top: .5rem; }
+
+/* Badges coherentes con la paleta */
+.badge.bg-light.text-dark {
+  background: #fff5e6 !important;
+  color: #7a4c00 !important;
+  border: 1px solid #ffd9a8;
+}
+.badge.bg-secondary {
+  background: #e9eef4 !important;
+  color: #334155 !important;
+}
+
+/* Vacío */
+.empty {
+  border: 1px dashed #ffd9a8;
+  background: #fffaf3;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  color: #7b5321;
+}
+.empty-title {
+  font-weight: 800;
+  color: #53350a;
+}
+.empty-sub {
+  margin: 2px 0 0;
+  font-size: .9rem;
+  color: #7a5a2a;
+}
+
+/* Botones (mantiene Bootstrap, solo pulimos) */
+.btn-sm { padding: .35rem .6rem; }
+.btn-primary {
+  background: var(--brand, #ff8a00);
+  border-color: var(--brand, #ff8a00);
+}
+.btn-primary:hover {
+  background: #e67a00;
+  border-color: #e67a00;
+}
+.btn-outline-secondary:hover {
+  background: #f5f7fb;
+}
+.btn-outline-dark {
+  border-color: #334155;
+  color: #334155;
+}
+.btn-outline-dark:hover {
+  background: #334155; color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .row-end { justify-content: flex-start; }
+  .card-item { padding: 10px; }
+  .badge { margin-top: 4px; }
+}
+
+ /* =========================
+   Toolbar de filtros (tema claro + naranja)
+   ========================= */
+
+.filter-toolbar {
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 22px rgba(16,24,40,.06);
+  margin-bottom: 16px;
+}
+
+.filter-toolbar .toolbar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #1f2d3b;
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+}
+.filter-toolbar .toolbar-title .bi {
+  color: #ff8a00;
+  font-size: 1.05rem;
+}
+
+/* Grid adaptable */
+.filter-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(12, 1fr);
+}
+.filter-grid > .col-6 { grid-column: span 6; }
+.filter-grid > .col-4 { grid-column: span 4; }
+.filter-grid > .col-3 { grid-column: span 3; }
+.filter-grid > .col-2 { grid-column: span 2; }
+
+@media (max-width: 900px) {
+  .filter-grid { grid-template-columns: repeat(6, 1fr); }
+  .filter-grid > .col-6 { grid-column: span 6; }
+  .filter-grid > .col-4 { grid-column: span 6; }
+  .filter-grid > .col-3 { grid-column: span 3; }
+  .filter-grid > .col-2 { grid-column: span 3; }
+}
+@media (max-width: 560px) {
+  .filter-grid { grid-template-columns: repeat(4, 1fr); }
+  .filter-grid > * { grid-column: span 4; }
+}
+
+/* Inputs Bootstrap tuneados */
+.filter-toolbar .form-select,
+.filter-toolbar .form-control {
+  border-radius: 10px;
+  border-color: #e6edf5;
+  font-size: 0.92rem;
+}
+.filter-toolbar .form-select:focus,
+.filter-toolbar .form-control:focus {
+  border-color: #ffb768;
+  box-shadow: 0 0 0 .2rem rgba(255,138,0,.15);
+}
+
+/* Range (precio/distancia) */
+.filter-toolbar .form-range::-webkit-slider-thumb {
+  background: #ff8a00;
+}
+.filter-toolbar .form-range::-moz-range-thumb {
+  background: #ff8a00;
+}
+
+/* Chips de filtro rápido */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-chip {
+  background: #fff5e6;
+  color: #7a4c00;
+  border: 1px solid #ffd9a8;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.filter-chip:hover {
+  transform: translateY(-1px);
+  background: #fff1db;
+}
+.filter-chip.active {
+  background: #ff8a00;
+  color: #fff;
+  border-color: #ff8a00;
+}
+
+/* Botón aplicar / limpiar */
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.filter-actions .btn-primary {
+  background: #ff8a00;
+  border-color: #ff8a00;
+}
+.filter-actions .btn-primary:hover {
+  background: #e67a00;
+  border-color: #e67a00;
+}
+.filter-actions .btn-outline-secondary:hover {
+  background: #f6f8fb;
+}
+
+/* Little helpers */
+.label-sm {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 4px;
+}

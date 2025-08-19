@@ -2,45 +2,116 @@ import React from 'react';
 
 const NearbyRequestsList = ({ items, onAccept, onDecline, onChat, onSave }) => {
   return (
-    <section className="card-section">
-      <h3 className="card-title"><i className="bi bi-geo-alt"></i> Solicitudes cercanas</h3>
+ <div className="filter-toolbar">
+  <div className="toolbar-title">
+    <i className="bi bi-sliders2"></i> Filtros
+  </div>
 
-      {items.length === 0 && (
-        <div className="empty">
-          <div className="empty-title">No hay solicitudes cerca</div>
-          <p className="empty-sub">Ajusta los filtros o amplía tu radio.</p>
-        </div>
-      )}
+  <div className="filter-grid">
+    <div className="col-3">
+      <div className="label-sm">Radio (km)</div>
+      <input
+        type="range"
+        className="form-range"
+        min="1"
+        max="10"
+        step="1"
+        value={filtros.radioKm}
+        onChange={(e) => setFiltros(f => ({ ...f, radioKm: Number(e.target.value) }))}
+      />
+      <small className="text-muted">{filtros.radioKm} km</small>
+    </div>
 
-      {items.map(s => (
-        <div className="card-item" key={s.id}>
-          <div className="d-flex flex-wrap align-items-center gap-2">
-            <strong>{s.dueno}</strong> · {s.zona} · {s.distanciaKm} km
-            <span className="badge bg-light text-dark ms-2">{s.servicio}</span>
-            <span className="badge bg-secondary ms-2">{s.tamano}</span>
-          </div>
-          <div className="muted">
-            {s.mascotas.join(', ')} • {s.fecha} {s.hora} • {s.duracion} min · ${s.tarifa}
-          </div>
-          <div className="muted">{s.notas}</div>
+    <div className="col-3">
+      <div className="label-sm">Servicio</div>
+      <select
+        className="form-select"
+        value={filtros.servicio}
+        onChange={(e) => setFiltros(f => ({ ...f, servicio: e.target.value }))}
+      >
+        <option value="cualquiera">Cualquiera</option>
+        <option value="Paseo">Paseo</option>
+        <option value="Cuidado">Cuidado</option>
+        <option value="Adiestramiento">Adiestramiento</option>
+      </select>
+    </div>
 
-          <div className="row-end gap-6 mt-2">
-            <button className="btn btn-primary btn-sm" onClick={() => onAccept(s.id)}>
-              <i className="bi bi-check2-circle me-1"></i> Aceptar
+    <div className="col-3">
+      <div className="label-sm">Tamaño</div>
+      <select
+        className="form-select"
+        value={filtros.tamano}
+        onChange={(e) => setFiltros(f => ({ ...f, tamano: e.target.value }))}
+      >
+        <option value="cualquiera">Cualquiera</option>
+        <option value="pequeño">Pequeño</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+    </div>
+
+    <div className="col-3">
+      <div className="label-sm">Precio mínimo ($)</div>
+      <input
+        type="number"
+        className="form-control"
+        min="0"
+        step="500"
+        value={filtros.precioMin}
+        onChange={(e) => setFiltros(f => ({ ...f, precioMin: e.target.value }))}
+        placeholder="Ej. 5000"
+      />
+    </div>
+
+    {/* Chips rápidos */}
+    <div className="col-6">
+      <div className="label-sm">Rápidos</div>
+      <div className="filter-chips">
+        {[
+          { key: 'servicio', val: 'Paseo', label: 'Solo paseos' },
+          { key: 'servicio', val: 'Cuidado', label: 'Solo cuidado' },
+          { key: 'tamano',   val: 'mediano', label: 'Perros medianos' },
+          { key: 'tamano',   val: 'grande',  label: 'Perros grandes' },
+        ].map((chip) => {
+          const active = filtros[chip.key] === chip.val;
+          return (
+            <button
+              type="button"
+              key={chip.label}
+              className={`filter-chip ${active ? 'active' : ''}`}
+              onClick={() =>
+                setFiltros(f => ({
+                  ...f,
+                  [chip.key]: active ? (chip.key === 'servicio' ? 'cualquiera' : 'cualquiera') : chip.val
+                }))
+              }
+            >
+              {chip.label}
             </button>
-            <button className="btn btn-outline-secondary btn-sm" onClick={() => onChat(s.id)}>
-              <i className="bi bi-chat-dots me-1"></i> Chat
-            </button>
-            <button className="btn btn-outline-dark btn-sm" onClick={() => onSave(s.id)}>
-              <i className="bi bi-bookmark me-1"></i> Guardar
-            </button>
-            <button className="btn btn-outline-danger btn-sm" onClick={() => onDecline(s.id)}>
-              <i className="bi bi-x-circle me-1"></i> Declinar
-            </button>
-          </div>
-        </div>
-      ))}
-    </section>
+          );
+        })}
+      </div>
+    </div>
+
+    {/* Acciones */}
+    <div className="col-6">
+      <div className="filter-actions">
+        <button
+          type="button"
+          className="btn btn-outline-secondary"
+          onClick={() =>
+            setFiltros({ radioKm:5, horario:'cualquier', precioMin:0, tamano:'cualquiera', servicio:'cualquiera' })
+          }
+        >
+          Limpiar
+        </button>
+        <button type="button" className="btn btn-primary">
+          Aplicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
   );
 };
 

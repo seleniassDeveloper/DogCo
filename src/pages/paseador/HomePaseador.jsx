@@ -27,7 +27,7 @@ export const HomePaseador = () => {
     foto: null,
   });
 
-  const solicitudes = [
+  const solicitudes = [ 
     {
       id: 's1',
       dueno: 'Ana G.',
@@ -187,15 +187,19 @@ export const HomePaseador = () => {
 
       <div className="paseador-container">
         {/* 1) Header de paseador */}
-        <WalkerProfileCard
+         <WalkerProfileCard
           walker={walker}
           onToggle={onToggleDisponible}
           onEdit={onEditarPerfil}
         />
+        <RequestFilters value={filtros} onChange={setFiltros} />
+       
 
         {/* 2) Filtros + 2) Solicitudes cercanas */}
         <div className="grid-2">
-          <RequestFilters value={filtros} onChange={setFiltros} />
+              {/* 5) Mensajes */}
+        <ChatThreadList threads={threads} onOpen={t => onChat(t.id)} nextJob={proxima} />
+
           <NearbyRequestsList
             items={solicitudesFiltradas}
             onAccept={onAceptar}
@@ -227,9 +231,7 @@ export const HomePaseador = () => {
           />
         </div>
 
-        {/* 5) Mensajes */}
-        <ChatThreadList threads={threads} onOpen={t => onChat(t.id)} nextJob={proxima} />
-
+    
         {/* 6) Ganancias y pagos */}
         <div className="grid-2">
           <EarningsCard data={ganancias} onWithdraw={onRetirar} onConfig={onConfigCobro} />
