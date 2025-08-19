@@ -16,7 +16,7 @@ import {
   SupportCard,
 } from '../../components/DashboardPaseador';
 
-const HomePaseador = () => {
+export const HomePaseador = () => {
   // ===== DEMO STATE (conecta a tu backend cuando quieras) =====
   const [walker, setWalker] = useState({
     nombre: 'Selenia S.',
@@ -249,4 +249,3 @@ const HomePaseador = () => {
   );
 };
 
-export default HomePaseador;
