@@ -25,7 +25,7 @@ import {
   SupportCard
 } from "../../components/DashboardDueno";
 
-const HomeDueno = () => {
+export  const HomeDueno = () => {
   // ====== Datos DEMO (reemplaza por tu backend cuando quieras) ======
   const usuario = { nombreCompleto: 'Selenia Sanchez', username: 'seleinasanchez', rol: 'dueno' };
 
@@ -207,4 +207,3 @@ const HomeDueno = () => {
   );
 };
 
-export default HomeDueno;

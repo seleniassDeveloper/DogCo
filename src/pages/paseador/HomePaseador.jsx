@@ -1,29 +1,92 @@
 // src/pages/paseador/HomePaseador.jsx
-import React, { useMemo } from 'react';
-import '../../css/App.css';
+import React, { useMemo, useState } from 'react';
 import '../../css/HomePaseador.css';
-import { Navbar } from 'react-bootstrap'; // si tienes una barra propia, cámbiala
 import { Barranavbar } from '../../components/navbar/barranavbar';
+import {
+  WalkerProfileCard,
+  RequestFilters,
+  NearbyRequestsList,
+  UpcomingJobs,
+  LiveWalkControls,
+  ChatThreadList,
+  EarningsCard,
+  PayoutsList,
+  ZonesMap,
+  ReviewsSummary,
+  SupportCard,
+} from '../../components/DashboardPaseador';
 
-export const HomePaseador = () => {
-  // Datos simulados (conecta a tu backend cuando quieras)
-  const usuario = JSON.parse(localStorage.getItem('usuario')) || { displayName: 'Paseador/a' };
+const HomePaseador = () => {
+  // ===== DEMO STATE (conecta a tu backend cuando quieras) =====
+  const [walker, setWalker] = useState({
+    nombre: 'Selenia S.',
+    rating: 4.8,
+    verificaciones: { id: true, antecedentes: true },
+    disponible: true,          // online/offline
+    estado: 'online',          // 'online' | 'offline' | 'busy'
+    foto: null,
+  });
 
   const solicitudes = [
-    { id: 's1', nombre: 'Ana G.', zona: 'Palermo', hora: '15:00', tipo: 'Paseo de 30 min', distanciaKm: 2.1 },
-    { id: 's2', nombre: 'Carlos M.', zona: 'Belgrano', hora: '18:00', tipo: 'Cuidado por la tarde', distanciaKm: 3.7 },
+    {
+      id: 's1',
+      dueno: 'Ana G.',
+      mascotas: ['Luna'],
+      distanciaKm: 2.1,
+      fecha: '2025-08-18',
+      hora: '15:00',
+      tarifa: 9000,
+      duracion: 30,
+      zona: 'Palermo',
+      notas: 'Prefiere parque cercano',
+      tamano: 'mediano',
+      servicio: 'Paseo',
+    },
+    {
+      id: 's2',
+      dueno: 'Carlos M.',
+      mascotas: ['Roco', 'Mora'],
+      distanciaKm: 3.7,
+      fecha: '2025-08-18',
+      hora: '18:00',
+      tarifa: 18000,
+      duracion: 60,
+      zona: 'Belgrano',
+      notas: 'Roco se asusta de motos',
+      tamano: 'grande',
+      servicio: 'Cuidado',
+    },
   ];
 
-  const agendaHoy = [
-    { id: 'a1', hora: '10:00', duracion: '60m', mascota: 'Luna', dueno: 'Marcela', direccion: 'Av. Siempre Viva 742', estado: 'Confirmado' },
-    { id: 'a2', hora: '12:30', duracion: '30m', mascota: 'Roco', dueno: 'Federico', direccion: 'Calle Falsa 123', estado: 'Pendiente' },
+  const agenda = [
+    {
+      id: 'a1',
+      fecha: '2025-08-18',
+      hora: '10:00',
+      duracion: 60,
+      mascota: 'Luna',
+      dueno: 'Marcela',
+      direccion: 'Av. Siempre Viva 742',
+      estado: 'Confirmado', // Pendiente | Confirmado | En curso | Completado | Cancelado
+      servicio: 'Paseo',
+    },
+    {
+      id: 'a2',
+      fecha: '2025-08-18',
+      hora: '12:30',
+      duracion: 30,
+      mascota: 'Roco',
+      dueno: 'Federico',
+      direccion: 'Calle Falsa 123',
+      estado: 'Pendiente',
+      servicio: 'Paseo',
+    },
   ];
 
-  const proximaSalida = useMemo(() => {
-    // Tomamos la más próxima por hora (demo simple)
-    const ordenada = [...agendaHoy].sort((a, b) => a.hora.localeCompare(b.hora));
-    return ordenada[0] || null;
-  }, [agendaHoy]);
+  const threads = [
+    { id: 't1', nombre: 'Marcela', last: '¿Podemos pasar por la plaza hoy?', unread: 1 },
+    { id: 't2', nombre: 'Federico', last: 'Te dejé la llave con el portero 👌', unread: 0 },
+  ];
 
   const ganancias = {
     hoy: 12000,
@@ -31,180 +94,159 @@ export const HomePaseador = () => {
     mes: 245000,
     propinas: 9000,
     proximoPago: 'Viernes',
+    comision: '15%',
+    metodoCobro: 'CBU •• 1234',
+    historial: [
+      { id: 'p1', fecha: '2025-08-15', concepto: 'Paseo 60m', monto: 9000 },
+      { id: 'p2', fecha: '2025-08-12', concepto: 'Cuidado 3h', monto: 28000 },
+    ],
   };
 
-  // helpers UI
-  const badgeClass = (estado) => ({
-    'Pendiente': 'badge badge-warning',
-    'Confirmado': 'badge badge-success',
-    'En curso': 'badge badge-primary',
-    'Completado': 'badge badge-neutral',
-    'Cancelado': 'badge badge-muted',
-  }[estado] || 'badge');
+  const reputacion = {
+    promedio: 4.8,
+    total: 112,
+    indicadores: {
+      aceptacion: '92%',
+      respuesta: '1.8 min',
+      puntualidad: '98%',
+    },
+    ultimas: [
+      { id: 'r1', autor: 'Marcela', score: 5, comentario: '¡Excelente con Luna!' },
+      { id: 'r2', autor: 'Carlos', score: 4, comentario: 'Muy puntual y atento.' },
+    ],
+  };
 
-  // handlers (demo)
-  const iniciarPaseo = () => alert('Iniciar paseo');
-  const abrirChat = () => alert('Abrir chat');
-  const navegarMaps = () => alert('Abrir navegación en Maps');
-  const marcarLlegada = () => alert('Marcado como “Llegué”');
-  const finalizarPaseo = () => alert('Paseo finalizado');
+  const disponibilidad = {
+    radioKm: 5,
+    zonas: ['Palermo', 'Belgrano'],
+    horarios: {
+      lun: '08:00-18:00',
+      mar: '08:00-18:00',
+      mie: '08:00-18:00',
+      jue: '08:00-18:00',
+      vie: '08:00-18:00',
+      sab: '10:00-16:00',
+      dom: '—',
+    },
+    tarifas: {
+      paseo30: 9000,
+      paseo60: 15000,
+      extraSegundoPerro: 3000,
+    },
+    servicios: ['Paseo', 'Cuidado', 'Adiestramiento'],
+  };
 
-  const aceptar = (id) => alert(`Solicitud ${id} aceptada`);
-  const rechazar = (id) => alert(`Solicitud ${id} rechazada`);
-  const contraoferta = (id) => alert(`Contraoferta enviada para ${id}`);
+  // ===== Filtros (estado local) =====
+  const [filtros, setFiltros] = useState({
+    radioKm: 5,
+    horario: 'cualquier',
+    precioMin: 0,
+    tamano: 'cualquiera', // pequeño/mediano/grande/cualquiera
+    servicio: 'cualquiera',
+  });
+
+  const solicitudesFiltradas = useMemo(() => {
+    return solicitudes.filter(s => {
+      if (s.distanciaKm > filtros.radioKm) return false;
+      if (filtros.precioMin && s.tarifa < Number(filtros.precioMin)) return false;
+      if (filtros.tamano !== 'cualquiera' && s.tamano !== filtros.tamano) return false;
+      if (filtros.servicio !== 'cualquiera' && s.servicio !== filtros.servicio) return false;
+      // horario simple: lo omitimos en demo
+      return true;
+    });
+  }, [solicitudes, filtros]);
+
+  // ===== Handlers (demo) =====
+  const onToggleDisponible = (estado) => setWalker(w => ({ ...w, estado, disponible: estado === 'online' }));
+  const onEditarPerfil = () => alert('Editar perfil');
+  const onAceptar = (id) => alert(`Solicitud ${id} aceptada`);
+  const onDeclinar = (id) => alert(`Solicitud ${id} declinada`);
+  const onChat = (id) => alert(`Abrir chat solicitud ${id}`);
+  const onGuardar = (id) => alert(`Solicitud ${id} guardada`);
+  const onStart = () => alert('Iniciar paseo');
+  const onPause = () => alert('Pausar paseo');
+  const onResume = () => alert('Reanudar paseo');
+  const onFinish = () => alert('Finalizar paseo (requiere 1 foto)');
+  const onFoto = () => alert('Adjuntar foto');
+  const onNota = () => alert('Agregar nota');
+  const onChecklist = (key) => alert(`Checklist: ${key}`);
+  const onNavegar = () => alert('Abrir Maps');
+  const onReprogramar = () => alert('Reprogramar');
+  const onCancelar = () => alert('Cancelar con motivo');
+  const onRetirar = () => alert('Retirar fondos');
+  const onConfigCobro = () => alert('Configurar método de cobro');
+
+  const proxima = useMemo(() => {
+    const sorted = [...agenda].sort((a, b) => a.hora.localeCompare(b.hora));
+    return sorted[0] || null;
+  }, [agenda]);
 
   return (
     <>
-      {/* Si tienes una barra propia, reemplaza por tu componente */}
-     <Barranavbar/>
+      <Barranavbar />
 
-      <div className="dashboard-paseador">
-        <h2 className="dashboard-title">👋 Hola, {usuario.displayName || 'Paseador/a'}</h2>
+      <div className="paseador-container">
+        {/* 1) Header de paseador */}
+        <WalkerProfileCard
+          walker={walker}
+          onToggle={onToggleDisponible}
+          onEdit={onEditarPerfil}
+        />
 
-        {/* ===== HERO Próxima salida ===== */}
-        <section className="card-section hero-card">
-          <div className="hero-head">
-            <h3>🚶‍♂️ Próxima salida {proximaSalida ? <span className={badgeClass(proximaSalida.estado)}>{proximaSalida.estado}</span> : null}</h3>
-          </div>
-
-          {!proximaSalida ? (
-            <div className="empty">
-              <div className="empty-title">No tienes salidas próximas</div>
-              <p className="empty-sub">Activa tu disponibilidad para recibir solicitudes.</p>
-              <button className="btn-ghost">Configurar disponibilidad</button>
-            </div>
-          ) : (
-            <>
-              <div className="hero-grid">
-                <div className="hero-info">
-                  <div className="row">
-                    <span className="tag">Hora</span>
-                    <div className="val">{proximaSalida.hora} · {proximaSalida.duracion}</div>
-                  </div>
-                  <div className="row">
-                    <span className="tag">Mascota</span>
-                    <div className="val">🐶 {proximaSalida.mascota}</div>
-                  </div>
-                  <div className="row">
-                    <span className="tag">Dueño</span>
-                    <div className="val">{proximaSalida.dueno}</div>
-                  </div>
-                  <div className="row">
-                    <span className="tag">Dirección</span>
-                    <div className="val">{proximaSalida.direccion}</div>
-                  </div>
-                </div>
-
-                <div className="hero-actions">
-                  <button className="btn-primary" onClick={iniciarPaseo}>▶️ Iniciar paseo</button>
-                  <button className="btn-light" onClick={marcarLlegada}>📍 Llegué</button>
-                  <button className="btn-light" onClick={abrirChat}>💬 Chat</button>
-                  <button className="btn-light" onClick={navegarMaps}>🗺️ Navegar</button>
-                  <button className="btn-danger" onClick={finalizarPaseo}>⏹️ Finalizar</button>
-                </div>
-              </div>
-
-              {/* Estado en vivo (demo) */}
-              <div className="live-bar">
-                <div className="steps">
-                  <span className="dot done" /> En ruta
-                  <span className="sep" />
-                  <span className="dot" /> Llegué
-                  <span className="sep" />
-                  <span className="dot" /> Paseo iniciado
-                  <span className="sep" />
-                  <span className="dot" /> Finalizado
-                </div>
-                <div className="timer">⏱️ 42:15</div>
-              </div>
-            </>
-          )}
-        </section>
-
-        {/* ===== Grilla principal: agenda / solicitudes / mensajes / ganancias ===== */}
-        <div className="dashboard-sections">
-          {/* Agenda del día */}
-          <section className="card-section">
-            <h3>📅 Agenda de hoy</h3>
-            {agendaHoy.map((p) => (
-              <div key={p.id} className="card-item">
-                <p><strong>{p.hora}</strong> · {p.duracion}</p>
-                <p>🐶 {p.mascota} · {p.dueno}</p>
-                <p className="muted">📍 {p.direccion}</p>
-                <div className="row-end">
-                  <span className={badgeClass(p.estado)}>{p.estado}</span>
-                  <div className="gap-6">
-                    <button className="btn-ghost">Ver detalle</button>
-                    <button className="btn-ghost">Reprogramar</button>
-                    <button className="btn-ghost">Cancelar</button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </section>
-
-          {/* Bandeja de solicitudes */}
-          <section className="card-section">
-            <h3>📥 Solicitudes nuevas</h3>
-            {solicitudes.map((s) => (
-              <div key={s.id} className="card-item light">
-                <p><strong>{s.nombre}</strong> · <em>{s.zona}</em> · {s.distanciaKm} km</p>
-                <p>{s.tipo} a las {s.hora}</p>
-                <div className="row-end gap-6">
-                  <button className="btn-primary" onClick={() => aceptar(s.id)}>Aceptar</button>
-                  <button className="btn-ghost" onClick={() => contraoferta(s.id)}>Contraoferta</button>
-                  <button className="btn-danger-outline" onClick={() => rechazar(s.id)}>Rechazar</button>
-                </div>
-              </div>
-            ))}
-          </section>
-
-          {/* Mensajes (preview simple) */}
-          <section className="card-section">
-            <h3>💬 Mensajes</h3>
-            <div className="card-item">
-              <p><strong>Marcela</strong></p>
-              <p className="muted">“¿Podemos pasar por la plaza hoy?”</p>
-              <button className="btn-ghost">Abrir chat</button>
-            </div>
-            <div className="card-item">
-              <p><strong>Federico</strong></p>
-              <p className="muted">“Te dejé la llave con el portero 👌”</p>
-              <button className="btn-ghost">Abrir chat</button>
-            </div>
-          </section>
-
-          {/* Ganancias */}
-          <section className="card-section stats">
-            <h3>💵 Ganancias</h3>
-            <div className="kpi-grid">
-              <div className="kpi">
-                <div className="kpi-label">Hoy</div>
-                <div className="kpi-value">${ganancias.hoy}</div>
-              </div>
-              <div className="kpi">
-                <div className="kpi-label">Semana</div>
-                <div className="kpi-value">${ganancias.semana}</div>
-              </div>
-              <div className="kpi">
-                <div className="kpi-label">Mes</div>
-                <div className="kpi-value">${ganancias.mes}</div>
-              </div>
-              <div className="kpi">
-                <div className="kpi-label">Propinas</div>
-                <div className="kpi-value">${ganancias.propinas}</div>
-              </div>
-            </div>
-            <div className="row-between mt-10">
-              <div className="muted">Próximo pago: <strong>{ganancias.proximoPago}</strong></div>
-              <div className="gap-6">
-                <button className="btn-ghost">Configurar cobro</button>
-                <button className="btn-primary">Retirar</button>
-              </div>
-            </div>
-          </section>
+        {/* 2) Filtros + 2) Solicitudes cercanas */}
+        <div className="grid-2">
+          <RequestFilters value={filtros} onChange={setFiltros} />
+          <NearbyRequestsList
+            items={solicitudesFiltradas}
+            onAccept={onAceptar}
+            onDecline={onDeclinar}
+            onChat={onChat}
+            onSave={onGuardar}
+          />
         </div>
+
+        {/* 3) Próximos trabajos / Agenda  + 4) Paseo en vivo */}
+        <div className="grid-2">
+          <UpcomingJobs
+            agenda={agenda}
+            onStart={onStart}
+            onNavigate={onNavegar}
+            onReschedule={onReprogramar}
+            onCancel={onCancelar}
+          />
+          <LiveWalkControls
+            current={proxima}
+            onStart={onStart}
+            onPause={onPause}
+            onResume={onResume}
+            onFinish={onFinish}
+            onPhoto={onFoto}
+            onNote={onNota}
+            onChecklist={onChecklist}
+            onChat={() => onChat(proxima?.id || 'proxima')}
+          />
+        </div>
+
+        {/* 5) Mensajes */}
+        <ChatThreadList threads={threads} onOpen={t => onChat(t.id)} nextJob={proxima} />
+
+        {/* 6) Ganancias y pagos */}
+        <div className="grid-2">
+          <EarningsCard data={ganancias} onWithdraw={onRetirar} onConfig={onConfigCobro} />
+          <PayoutsList data={ganancias} />
+        </div>
+
+        {/* 7) Zonas y disponibilidad + 8) Reputación */}
+        <div className="grid-2">
+          <ZonesMap disponibilidad={disponibilidad} />
+          <ReviewsSummary data={reputacion} />
+        </div>
+
+        {/* 9) Soporte */}
+        <SupportCard />
       </div>
     </>
   );
 };
+
+export default HomePaseador;
