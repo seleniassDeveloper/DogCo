@@ -9,6 +9,7 @@ export const KPICards = ({ kpis = {} }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  
   // Valores seguros por defecto
   const {
     proximaEnDias = 0,

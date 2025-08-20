@@ -1,3 +1,5 @@
+
+
 /* ===========================
    Dashboard Dueño – Estilos
    Fondo claro, texto azul oscuro
@@ -381,4 +383,67 @@ i.bi { font-style: normal; vertical-align: -1px; }
   .mpr-row { grid-template-columns:1fr; }
   .mpr-footer { flex-direction:column; }
   .mpr-actions-left { order:2; }
+}
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.qa-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(17,17,17,.06); background: #fff;
+}
+.qa-btn:hover { filter: brightness(0.98); }
+
+/* src/css/modal-acciones-rapidas.css */
+.mar-modal { border-radius: 16px; }
+
+.mar-empty {
+  text-align: center; color: #6b7280; padding: 16px;
+  border: 1px dashed #e5e7eb; border-radius: 12px;
+}
+
+.mar-list { display: grid; gap: 10px; }
+
+.mar-item {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.mar-item:hover { border-color: #d1d5db; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+.mar-item.selected { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); background: #f8fbff; }
+
+.mar-item-main { display: grid; gap: 4px; }
+.mar-line-1 { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mar-line-2 { display: flex; flex-wrap: wrap; gap: 8px; color: #6b7280; font-size: 13px; }
+
+.mar-service { font-weight: 600; }
+.mar-dot { color: #9ca3af; }
+.mar-badge {
+  margin-left: 6px;
+  background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;
+  padding: 2px 8px; border-radius: 999px; font-size: 12px;
+}
+.mar-address { color: #374151; }
+.mar-pets { color: #374151; }
+
+.mar-check {
+  width: 22px; height: 22px; display: grid; place-items: center;
+  background: #10b981; color: #fff; border-radius: 50%;
+  font-size: 12px; flex-shrink: 0;
+}
+
+.mar-footer { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+@media (max-width: 520px) {
+  .mar-item { padding: 10px; }
 }
