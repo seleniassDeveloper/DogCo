@@ -2,11 +2,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import '../../css/HomeDueno.css';
 import { gsap } from 'gsap';
-
-// Navbar
 import { Barranavbar } from "../../components/navbar/barranavbar";
-
-// Import agrupado desde el barrel file
 import {
   OwnerProfileCard,
   RequestForm,
@@ -25,8 +21,10 @@ import {
   SupportCard
 } from "../../components/DashboardDueno";
 
-export  const HomeDueno = () => {
-  // ====== Datos DEMO (reemplaza por tu backend cuando quieras) ======
+
+
+export const HomeDueno = () => {
+
   const usuario = { nombreCompleto: 'Selenia Sanchez', username: 'seleinasanchez', rol: 'dueno' };
 
   const reservas = [
@@ -35,13 +33,17 @@ export  const HomeDueno = () => {
   ];
 
   const mensajesThreads = [
-    { id: 'c1', nombre: 'Juan P.', mensajes: [
-      { id: 'm1', texto: '¿Confirmamos 10am?', ts: Date.now() - 1000 * 60 * 40, from: 'them', read: false },
-      { id: 'm2', texto: 'Sí, perfecto.', ts: Date.now() - 1000 * 60 * 35, from: 'me', read: true },
-    ]},
-    { id: 'c2', nombre: 'María G.', mensajes: [
-      { id: 'm3', texto: '¿Traes su juguete?', ts: Date.now() - 1000 * 60 * 120, from: 'them', read: false }
-    ]},
+    {
+      id: 'c1', nombre: 'Juan P.', mensajes: [
+        { id: 'm1', texto: '¿Confirmamos 10am?', ts: Date.now() - 1000 * 60 * 40, from: 'them', read: false },
+        { id: 'm2', texto: 'Sí, perfecto.', ts: Date.now() - 1000 * 60 * 35, from: 'me', read: true },
+      ]
+    },
+    {
+      id: 'c2', nombre: 'María G.', mensajes: [
+        { id: 'm3', texto: '¿Traes su juguete?', ts: Date.now() - 1000 * 60 * 120, from: 'them', read: false }
+      ]
+    },
   ];
 
   const mascotas = [
@@ -72,7 +74,7 @@ export  const HomeDueno = () => {
   const now = new Date();
   const proxima = useMemo(() => {
     const futuras = reservas
-      .filter(r => new Date(r.start) >= now && ['Confirmado','Pendiente','Activo'].includes(r.estado))
+      .filter(r => new Date(r.start) >= now && ['Confirmado', 'Pendiente', 'Activo'].includes(r.estado))
       .sort((a, b) => new Date(a.start) - new Date(b.start));
     return futuras[0] || null;
   }, [reservas]);
@@ -132,7 +134,19 @@ export  const HomeDueno = () => {
       <Barranavbar usuario={usuario} />
 
       <div className="px-5 mt-3">
-        <OwnerProfileCard owner={{ ...usuario, foto: null, zona: 'Palermo', rating: 4.8 }} />
+        <OwnerProfileCard
+          owner={{
+            nombreCompleto: "Selenia Sánchez",
+            username: "ssanchez",
+            foto: null,
+            zona: "Bogotá",
+            rating: 4.9,
+            verificado: true,
+            disponible: false
+          }}
+          onEdit={() => console.log("Abrir modal de editar perfil")}
+        />
+        {/* <OwnerProfileCard owner={{ ...usuario, foto: null, zona: 'Palermo', rating: 4.8 }} /> */}
       </div>
 
       <div className="px-5 mt-3">

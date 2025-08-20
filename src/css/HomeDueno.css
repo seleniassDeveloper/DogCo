@@ -311,3 +311,74 @@ i.bi { font-style: normal; vertical-align: -1px; }
 @media (max-width: 576px) {
   .colB .home-card { margin-bottom: 2px; }
 }
+
+.owner-status {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.status-dot.online { background: #28a745; }   /* verde */
+.status-dot.offline { background: #dc3545; } /* rojo */
+
+.btn-edit {
+  margin-top: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #f57c00;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-edit:hover {
+  filter: brightness(1.05);
+}
+
+.prueba{
+  border: red solid 1px;
+}
+
+/* src/css/modal-proxima-reserva.css */
+.mpr-modal { border-radius: 16px; }
+.mpr-header { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.mpr-sitter-avatar { width:48px; height:48px; border-radius:12px; object-fit:cover; }
+.mpr-header-info { display:grid; gap:2px; }
+.mpr-sitter-name { font-weight:700; }
+.mpr-sub { font-size:13px; color:#6b7280; }
+
+.mpr-row { display:grid; grid-template-columns: 140px 1fr; gap:10px; margin-bottom:10px; }
+.mpr-label { font-weight:600; color:#374151; }
+.mpr-pets { display:flex; gap:8px; flex-wrap:wrap; }
+.mpr-pet-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #eee; border-radius:10px; font-size:13px; }
+.mpr-pet-avatar { width:24px; height:24px; border-radius:6px; object-fit:cover; }
+
+.mpr-status { display:inline-flex; align-items:center; gap:6px; padding:2px 10px; border-radius:999px; font-size:12px; border:1px solid transparent; }
+.mpr-status.confirmed { background:#ecfdf5; color:#047857; border-color:#a7f3d0; }
+.mpr-status.pending   { background:#fffbeb; color:#92400e; border-color:#fde68a; }
+.mpr-status.active    { background:#eef2ff; color:#3730a3; border-color:#c7d2fe; }
+.mpr-status.completed { background:#eff6ff; color:#1e40af; border-color:#bfdbfe; }
+.mpr-status.canceled  { background:#f3f4f6; color:#6b7280; border-color:#e5e7eb; }
+
+.mpr-maps a { font-size:13px; color:#2563eb; text-decoration:none; }
+.mpr-maps a:hover { text-decoration:underline; }
+
+.mpr-footer { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.mpr-actions-left { display:flex; gap:8px; flex-wrap:wrap; }
+
+@media (max-width:520px){
+  .mpr-row { grid-template-columns:1fr; }
+  .mpr-footer { flex-direction:column; }
+  .mpr-actions-left { order:2; }
+}
