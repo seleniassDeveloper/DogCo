@@ -1,66 +1,123 @@
-import React from 'react';
+// src/components/DashboardPaseador/WalkerProfileCard.jsx
+import React, { useState } from 'react';
+import RequestFilters from './RequestFilters';
 
-const WalkerProfileCard = ({ walker, onToggle, onEdit }) => {
-  const statusColor = {
-    online: 'text-success',
-    offline: 'text-muted',
-    busy: 'text-warning',
-  }[walker.estado] || 'text-muted';
+const WalkerProfileCard = ({ onToggle, onEdit }) => {
+  // Estado local para filtros (maquetación)
+  const [filtros, setFiltros] = useState({
+    radioKm: 5,
+    precioMin: 0,
+    tamano: 'cualquiera',
+    servicio: 'cualquiera',
+  });
+
+  // Mock de datos del paseador (solo UI)
+  const walker = {
+    nombre: 'Selenia S.',
+    foto: null,
+    rating: 4.8,
+    reseñas: 112,
+    estado: 'online', // 'online' | 'offline' | 'busy'
+    verificaciones: { id: true, antecedentes: true },
+  };
+
+  const statusBadge =
+    {
+      online:  { text: 'Disponible', className: 'badge bg-success-subtle text-success-emphasis' },
+      busy:    { text: 'Ocupado',    className: 'badge bg-warning-subtle text-warning-emphasis' },
+      offline: { text: 'Offline',    className: 'badge bg-secondary-subtle text-secondary-emphasis' },
+    }[walker.estado] || { text: '—', className: 'badge bg-light text-dark' };
 
   return (
-    <section className="card-section">
-      <div className="walker-header">
-        <img
-          src={walker.foto || 'https://i.pravatar.cc/80?img=68'}
-          alt={walker.nombre}
-          className="avatar"
-        />
-        <div className="info">
-          <h3 className="m-0">{walker.nombre}</h3>
-          <div className="meta">
-            <span className="me-2">
-              <i className="bi bi-star-fill text-warning"></i> {walker.rating}
-            </span>
-            <span className="me-2">
-              {walker.verificaciones.id && <i className="bi bi-patch-check-fill text-primary"></i>} ID
-            </span>
-            <span>
-              {walker.verificaciones.antecedentes && <i className="bi bi-shield-lock-fill text-primary"></i>} Antecedentes
-            </span>
-          </div>
-        </div>
+    <section className="card-section" style={{ padding: 0 }}>
+      {/* Encabezado */}
+      <div className="p-3 d-flex align-items-center justify-content-between border-bottom">
+        <h3 className="card-title m-0 d-flex align-items-center gap-2">
+          <i className="bi bi-person-badge"></i> Perfil del paseador
+        </h3>
+        <button type="button" className="btn btn-outline-warning btn-sm" onClick={onEdit}>
+          <i className="bi bi-pencil-square me-1"></i> Editar perfil
+        </button>
+      </div>
 
-        <div className="actions ms-auto">
-          <div className="btn-group me-2" role="group">
+      {/* Perfil */}
+      <div className="p-3 d-flex flex-wrap align-items-center gap-3">
+        {walker.foto ? (
+          <img
+            src={walker.foto}
+            alt={walker.nombre}
+            width={72}
+            height={72}
+            className="rounded-circle object-fit-cover"
+          />
+        ) : (
+          <div
+            className="rounded-circle d-flex align-items-center justify-content-center"
+            style={{
+              width: 72,
+              height: 72,
+              background: '#fff7ea',
+              color: '#a25e00',
+              fontWeight: 700,
+              border: '1px solid #ffd9b5',
+            }}
+            aria-label={`Avatar de ${walker.nombre}`}
+          >
+            {walker.nombre?.[0] || 'S'}
+          </div>
+        )}
+
+        <div className="flex-grow-1">
+          <div className="d-flex align-items-center gap-2 flex-wrap">
+            <strong className="fs-6">{walker.nombre}</strong>
+            <span className={statusBadge.className}>{statusBadge.text}</span>
+            <span className="badge bg-light text-dark">
+              <i className="bi bi-star-fill me-1 text-warning"></i>
+              {walker.rating} · {walker.reseñas} reseñas
+            </span>
+            {walker.verificaciones?.id && (
+              <span className="badge bg-light text-success border">
+                <i className="bi bi-shield-check me-1"></i> Identidad verificada
+              </span>
+            )}
+            {walker.verificaciones?.antecedentes && (
+              <span className="badge bg-light text-success border">
+                <i className="bi bi-patch-check me-1"></i> Antecedentes OK
+              </span>
+            )}
+          </div>
+
+          {/* Controles estado (maqueta) */}
+          <div className="d-flex flex-wrap gap-2 mt-2">
             <button
-              className={`btn btn-sm ${walker.estado==='online'?'btn-success':'btn-outline-success'}`}
-              onClick={() => onToggle('online')}
+              type="button"
+              className="btn btn-sm btn-outline-success"
+              onClick={() => onToggle?.('online')}
             >
               <i className="bi bi-toggle-on me-1"></i> Online
             </button>
             <button
-              className={`btn btn-sm ${walker.estado==='busy'?'btn-warning':'btn-outline-warning'}`}
-              onClick={() => onToggle('busy')}
+              type="button"
+              className="btn btn-sm btn-outline-warning"
+              onClick={() => onToggle?.('busy')}
             >
-              <i className="bi bi-dash-circle me-1"></i> Busy
+              <i className="bi bi-hourglass-split me-1"></i> Ocupado
             </button>
             <button
-              className={`btn btn-sm ${walker.estado==='offline'?'btn-secondary':'btn-outline-secondary'}`}
-              onClick={() => onToggle('offline')}
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              onClick={() => onToggle?.('offline')}
             >
               <i className="bi bi-toggle-off me-1"></i> Offline
             </button>
           </div>
-
-          <button className="btn btn-primary btn-sm" onClick={onEdit}>
-            <i className="bi bi-pencil-square me-1"></i> Editar perfil
-          </button>
         </div>
       </div>
 
-      <small className={`d-inline-block mt-2 ${statusColor}`}>
-        <i className="bi bi-circle-fill me-1"></i> {walker.estado.toUpperCase()}
-      </small>
+      {/* Filtros (debajo del perfil) */}
+      <div className="p-3 pt-0">
+        <RequestFilters value={filtros} onChange={setFiltros} />
+      </div>
     </section>
   );
 };

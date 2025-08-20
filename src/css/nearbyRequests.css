@@ -1,0 +1,215 @@
+/* Caja general con borde y sombra suave */
+.perfil-box {
+  border: 1px solid #f3e2d9;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+}
+
+/* Header */
+.perfil-box__header {
+  background: linear-gradient(180deg, #fffaf4 0%, #ffffff 100%);
+}
+
+/* Avatar */
+.perfil-box__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ffd8b8;
+  background: #fff7ea;
+  display: grid;
+  place-items: center;
+}
+.perfil-box__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.perfil-box__avatar-fallback {
+  font-weight: 700;
+  color: #a25e00;
+}
+
+/* Nombre y estado */
+.perfil-box__name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+/* Badges de estado */
+.badge.estado {
+  border: 1px solid transparent;
+  background: #fff;
+  color: #333;
+}
+.badge.estado.online {
+  background: #e9f8ef;
+  color: #156c2f;
+  border-color: #bce7ca;
+}
+.badge.estado.busy {
+  background: #fff2e3;
+  color: #9a4b00;
+  border-color: #ffd7b0;
+}
+.badge.estado.offline {
+  background: #f3f4f6;
+  color: #5b6270;
+  border-color: #e0e3e8;
+}
+
+/* Chip de verificación */
+.chip-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #ffd4a1;
+  background: #fff7ea;
+  color: #7a4b00;
+  font-size: 0.75rem;
+}
+
+/* Acciones */
+.perfil-box__actions .btn-primary {
+  background-color: #ff8f00;
+  border-color: #ff8f00;
+}
+.perfil-box__actions .btn-primary:hover {
+  background-color: #ff7d00;
+  border-color: #ff7d00;
+}
+
+/* Divider */
+.perfil-box__divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,216,176,0), rgba(255,216,176,0.9), rgba(255,216,176,0));
+}
+
+/* Ajustes responsivos */
+@media (max-width: 576px) {
+  .perfil-box__actions {
+    display: none; /* compacta en móvil */
+  }
+}
+
+/* ====== Filtros (tema claro + acento naranja) ====== */
+
+.filters-card {
+  border: 1px solid #f3e2d9;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+  padding: 16px 18px;
+}
+
+.filters-header {
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-title i {
+  color: #ff8f00;
+}
+
+/* Grilla principal */
+.filters-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.filter-field .form-label {
+  font-weight: 600;
+  color: #444;
+}
+.input-group-text {
+  background: #fff7ea;
+  border-color: #ffd9b5;
+  color: #a25e00;
+}
+.form-control,
+.form-select {
+  border-color: #f0d9c6;
+}
+.form-text {
+  color: #6c757d;
+}
+
+/* Avanzados */
+.filters-advanced {
+  border-top: 1px dashed #ffe2c5;
+  padding-top: 10px;
+}
+.advanced-summary {
+  list-style: none;
+  cursor: pointer;
+  color: #a25e00;
+  font-weight: 600;
+}
+.advanced-summary::-webkit-details-marker { display: none; }
+
+.advanced-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 10px;
+}
+.badges-wrap, .chips-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Selectables */
+.badge.selectable {
+  background: #fff7ea;
+  color: #7a4b00;
+  border: 1px solid #ffd9b5;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+.badge.selectable:focus,
+.badge.selectable:hover {
+  background: #ffedd5;
+  border-color: #ffcc99;
+  outline: none;
+}
+
+.chip {
+  background: #f6f6f6;
+  border: 1px solid #e6e6e6;
+  color: #444;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
+.chip:focus,
+.chip:hover {
+  background: #fff;
+  border-color: #ffcc99;
+  box-shadow: 0 0 0 3px rgba(255, 159, 10, 0.15);
+  outline: none;
+}
+
+/* Presets */
+.btn-group .btn.btn-light {
+  border-color: #ffe3c2;
+  background: #fffaf4;
+}
+.btn-group .btn.btn-light:hover {
+  background: #fff2e3;
+  border-color: #ffd6a8;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .filters-grid,
+  .advanced-grid {
+    grid-template-columns: 1fr;
+  }
+}

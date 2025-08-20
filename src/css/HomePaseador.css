@@ -48,14 +48,6 @@
   font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Si usas navbar de bootstrap encima */
-.paseador-container ~ .navbar,
-.navbar {
-  background: rgba(255,255,255,.75)!important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-
 /* ---------- Typography ---------- */
 .paseador-container h1,
 .paseador-container h2 { letter-spacing: .2px; }

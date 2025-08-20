@@ -188,11 +188,11 @@ export const HomePaseador = () => {
       <div className="paseador-container">
         {/* 1) Header de paseador */}
          <WalkerProfileCard
-          walker={walker}
+         
           onToggle={onToggleDisponible}
           onEdit={onEditarPerfil}
         />
-        <RequestFilters value={filtros} onChange={setFiltros} />
+        {/* <RequestFilters value={filtros} onChange={setFiltros} /> */}
        
 
         {/* 2) Filtros + 2) Solicitudes cercanas */}

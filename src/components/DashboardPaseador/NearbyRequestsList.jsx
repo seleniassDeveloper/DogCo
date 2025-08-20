@@ -1,117 +1,53 @@
+// src/components/NearbyRequestsList.jsx
 import React from 'react';
+import '../../css/nearbyRequests.css';
 
-const NearbyRequestsList = ({ items, onAccept, onDecline, onChat, onSave }) => {
+
+const NearbyRequestsList = ({ items = [] }) => {
   return (
- <div className="filter-toolbar">
-  <div className="toolbar-title">
-    <i className="bi bi-sliders2"></i> Filtros
-  </div>
+    <section className="card-section">
+      <h3 className="card-title">
+        <i className="bi bi-geo-alt"></i> Solicitudes cercanas
+      </h3>
 
-  <div className="filter-grid">
-    <div className="col-3">
-      <div className="label-sm">Radio (km)</div>
-      <input
-        type="range"
-        className="form-range"
-        min="1"
-        max="10"
-        step="1"
-        value={filtros.radioKm}
-        onChange={(e) => setFiltros(f => ({ ...f, radioKm: Number(e.target.value) }))}
-      />
-      <small className="text-muted">{filtros.radioKm} km</small>
-    </div>
+      {items.length === 0 && (
+        <div className="empty">
+          <div className="empty-title">No hay solicitudes cerca</div>
+          <p className="empty-sub">Ajusta los filtros o amplía tu radio.</p>
+        </div>
+      )}
 
-    <div className="col-3">
-      <div className="label-sm">Servicio</div>
-      <select
-        className="form-select"
-        value={filtros.servicio}
-        onChange={(e) => setFiltros(f => ({ ...f, servicio: e.target.value }))}
-      >
-        <option value="cualquiera">Cualquiera</option>
-        <option value="Paseo">Paseo</option>
-        <option value="Cuidado">Cuidado</option>
-        <option value="Adiestramiento">Adiestramiento</option>
-      </select>
-    </div>
+      {items.map((s) => (
+        <article className="card-item" key={s.id} aria-label={`Solicitud de ${s.dueno}`}>
+          <div className="d-flex flex-wrap align-items-center gap-2">
+            <strong>{s.dueno}</strong> · {s.zona} · {s.distanciaKm} km
+            {s.servicio && <span className="badge bg-light text-dark ms-2">{s.servicio}</span>}
+            {s.tamano && <span className="badge bg-secondary ms-2">{s.tamano}</span>}
+          </div>
 
-    <div className="col-3">
-      <div className="label-sm">Tamaño</div>
-      <select
-        className="form-select"
-        value={filtros.tamano}
-        onChange={(e) => setFiltros(f => ({ ...f, tamano: e.target.value }))}
-      >
-        <option value="cualquiera">Cualquiera</option>
-        <option value="pequeño">Pequeño</option>
-        <option value="mediano">Mediano</option>
-        <option value="grande">Grande</option>
-      </select>
-    </div>
+          <div className="muted">
+            {s.mascotas?.join(', ') || 'Mascotas'} • {s.fecha} {s.hora} • {s.duracion} min · ${s.tarifa}
+          </div>
 
-    <div className="col-3">
-      <div className="label-sm">Precio mínimo ($)</div>
-      <input
-        type="number"
-        className="form-control"
-        min="0"
-        step="500"
-        value={filtros.precioMin}
-        onChange={(e) => setFiltros(f => ({ ...f, precioMin: e.target.value }))}
-        placeholder="Ej. 5000"
-      />
-    </div>
+          {s.notas && <div className="muted">{s.notas}</div>}
 
-    {/* Chips rápidos */}
-    <div className="col-6">
-      <div className="label-sm">Rápidos</div>
-      <div className="filter-chips">
-        {[
-          { key: 'servicio', val: 'Paseo', label: 'Solo paseos' },
-          { key: 'servicio', val: 'Cuidado', label: 'Solo cuidado' },
-          { key: 'tamano',   val: 'mediano', label: 'Perros medianos' },
-          { key: 'tamano',   val: 'grande',  label: 'Perros grandes' },
-        ].map((chip) => {
-          const active = filtros[chip.key] === chip.val;
-          return (
-            <button
-              type="button"
-              key={chip.label}
-              className={`filter-chip ${active ? 'active' : ''}`}
-              onClick={() =>
-                setFiltros(f => ({
-                  ...f,
-                  [chip.key]: active ? (chip.key === 'servicio' ? 'cualquiera' : 'cualquiera') : chip.val
-                }))
-              }
-            >
-              {chip.label}
+          <div className="row-end gap-6 mt-2">
+            <button className="btn btn-primary btn-sm" type="button" aria-disabled="true" disabled>
+              <i className="bi bi-check2-circle me-1"></i> Aceptar
             </button>
-          );
-        })}
-      </div>
-    </div>
-
-    {/* Acciones */}
-    <div className="col-6">
-      <div className="filter-actions">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={() =>
-            setFiltros({ radioKm:5, horario:'cualquier', precioMin:0, tamano:'cualquiera', servicio:'cualquiera' })
-          }
-        >
-          Limpiar
-        </button>
-        <button type="button" className="btn btn-primary">
-          Aplicar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+            <button className="btn btn-outline-secondary btn-sm" type="button" aria-disabled="true" disabled>
+              <i className="bi bi-chat-dots me-1"></i> Chat
+            </button>
+            <button className="btn btn-outline-dark btn-sm" type="button" aria-disabled="true" disabled>
+              <i className="bi bi-bookmark me-1"></i> Guardar
+            </button>
+            <button className="btn btn-outline-danger btn-sm" type="button" aria-disabled="true" disabled>
+              <i className="bi bi-x-circle me-1"></i> Declinar
+            </button>
+          </div>
+        </article>
+      ))}
+    </section>
   );
 };
 
