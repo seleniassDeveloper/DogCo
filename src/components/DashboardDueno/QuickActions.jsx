@@ -1,18 +1,23 @@
 // src/components/DashboardDueno/QuickActions.jsx
 import React, { useState, useCallback } from "react";
 import { ModalAccionesRapidas } from "./modales/modalAccionesRapidas";
+import { ModalAddPet } from "./modales/modalAddPet";
 
 const QuickActions = ({
   onNew = () => {},
-  onRepeat = () => {},      // te lo paso al modal para confirmar
-  onAddPet = () => {},
+  onRepeat = () => {},
+  onAddPet = () => {},       // se llamará al guardar en el modal
   onAddAddress = () => {},
   onApplyCoupon = () => {},
 }) => {
   const [isRepeatOpen, setIsRepeatOpen] = useState(false);
+  const [isAddPetOpen, setIsAddPetOpen] = useState(false);
 
   const openRepeatModal = useCallback(() => setIsRepeatOpen(true), []);
   const closeRepeatModal = useCallback(() => setIsRepeatOpen(false), []);
+
+  const openAddPetModal = useCallback(() => setIsAddPetOpen(true), []);
+  const closeAddPetModal = useCallback(() => setIsAddPetOpen(false), []);
 
   return (
     <div>
@@ -28,7 +33,7 @@ const QuickActions = ({
             <i className="bi bi-arrow-repeat"></i> Repetir Solicitud
           </button>
 
-          <button className="qa-btn" onClick={onAddPet}>
+          <button className="qa-btn" onClick={openAddPetModal}>
             <i className="bi bi-plus-circle"></i> Añadir mascota
           </button>
 
@@ -42,14 +47,24 @@ const QuickActions = ({
         </div>
       </div>
 
-      {/* Modal Repetir última */}
       {isRepeatOpen && (
         <ModalAccionesRapidas
           show={isRepeatOpen}
           onClose={closeRepeatModal}
-          onConfirm={() => {
-            onRepeat();        // ejecuta la acción “Repetir última”
+          onConfirm={(req) => {
+            onRepeat(req);
             closeRepeatModal();
+          }}
+        />
+      )}
+
+      {isAddPetOpen && (
+        <ModalAddPet
+          show={isAddPetOpen}
+          onClose={closeAddPetModal}
+          onSave={(newPet) => {
+            onAddPet(newPet);   // aquí puedes guardar a Firestore
+            closeAddPetModal();
           }}
         />
       )}
