@@ -5,12 +5,41 @@ import { useNavigate } from "react-router-dom";
 import { ModalResevacionPaseador } from "../../components/DashboardDueno/modales/modalResevaconPaseador";
 
 export const ListaPaseadores = ({ items = [] }) => {
+
+    const navigate = useNavigate();
+
+  const verPerfil = (p) =>  navigate(`/chat/${threadId}`, {
+  state: {
+    peer: { id: threadId, nombre, avatarUrl, rol },
+    threads: listaDeThreads // <- un array con tus hilos para poblar la bandeja
+  }
+});
+
+ 
+  
+
+  const handleChat = (p) => {
+    // armamos la info mínima del “peer” para el header del chat
+    const peer = {
+      id: p.id,
+      nombre: p.nombre,
+      avatarUrl: p.foto || null,
+      rol: "Paseador",
+      // cualquier otro dato que quieras mostrar en el panel derecho
+      rating: p.rating,
+      reviews: p.reviews,
+      zonas: p.zonas,
+    };
+    navigate(`/chat/${p.id}`, { state: { peer } });
+  };
+
+
   const usuario = (() => {
     try { return JSON.parse(localStorage.getItem("usuario") || "null"); }
     catch { return null; }
   })();
 
-  const navigate = useNavigate();
+
 
   const baseData = items.length ? items : [
     {
@@ -130,9 +159,7 @@ export const ListaPaseadores = ({ items = [] }) => {
     return arr;
   }, [baseData, sortBy]);
 
-  const verPerfil = (p) => {
-    navigate("/perfil-paseador", { state: { paseador: p } });
-  };
+
 
   return (
     <>
@@ -251,9 +278,9 @@ export const ListaPaseadores = ({ items = [] }) => {
                   <button className="btn btn-outline-secondary w-100" type="button" onClick={() => verPerfil(p)}>
                     <i className="bi bi-person-vcard me-1"></i> Ver perfil
                   </button>
-                  <button className="btn btn-outline-dark w-100" type="button">
-                    <i className="bi bi-chat-dots me-1"></i> Chat
-                  </button>
+                   <button className="btn btn-outline-dark w-100" type="button" onClick={() => handleChat(p)}>
+          <i className="bi bi-chat-dots me-1"></i> Chat
+        </button>
                   <button className="btn btn-outline-warning w-100" type="button">
                     <i className="bi bi-bookmark me-1"></i> Guardar
                   </button>

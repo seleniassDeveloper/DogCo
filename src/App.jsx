@@ -30,7 +30,7 @@ const App = () => {
           <Route path='/HomePaseador' element={<HomePaseador />} />
           <Route path='/HomeDueno' element={<HomeDueno />} />
           <Route path='/ListaPaseadores' element={<ListaPaseadores/>}/>
-           <Route path='/Chat' element={<Chat />} />
+        <Route path="/chat/:id" element={<Chat />} />
            <Route path='/perfil-paseador' element={<PerfilPaseadorTipoInsta />} />
       </Routes>
     </AuthProvider>
