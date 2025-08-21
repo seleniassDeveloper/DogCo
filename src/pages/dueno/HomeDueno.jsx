@@ -163,7 +163,7 @@ export const HomeDueno = () => {
   <button className="qa-btn" onClick={abrirNuevaSolicitud}>
         <i className="bi bi-clipboard-plus"></i> Nueva solicitud
       </button>
-      <button className=' btn botonListapaseo' onClick={() => handleNavigate()}><i class="fa-solid fa-magnifying-glass"></i>Buscar Paseador</button>
+      <button className=' btn mx-3 botonListapaseo' onClick={() => handleNavigate()}><i class="fa-solid fa-magnifying-glass"></i>Buscar Paseador</button>
       </div>
     
       <div className="px-5 home-grid mt-3">

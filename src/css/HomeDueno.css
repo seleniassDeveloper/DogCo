@@ -815,3 +815,7 @@ i.bi{ font-style:normal; vertical-align:-1px; }
   background-color: #0d1b2a!important;
   color: white!important;
 }
+
+.botonListapaseo:hover{
+  background-color:#072b53!important;;
+}

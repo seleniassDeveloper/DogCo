@@ -1,9 +1,10 @@
 // src/pages/dueno/ListaPaseadores.jsx
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Barranavbar } from "../../components/navbar/barranavbar";
+import { ModalResevacionPaseador } from "../../components/DashboardDueno/modales/modalResevaconPaseador";
 
 export const ListaPaseadores = ({ items = [] }) => {
-  // Trae el usuario (opcional) para la barra; si no existe, queda en null
+  // Usuario para la barra (opcional)
   const usuario = (() => {
     try {
       return JSON.parse(localStorage.getItem("usuario") || "null");
@@ -12,14 +13,15 @@ export const ListaPaseadores = ({ items = [] }) => {
     }
   })();
 
-  // Demo local si no llegan items por props
-  const data = items.length
+  // Demo local si no llegan items
+  const baseData = items.length
     ? items
     : [
         {
           id: "w1",
           nombre: "Marcos R.",
-          foto: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=240",
+          foto:
+            "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=240",
           rating: 4.9,
           reviews: 124,
           distanciaKm: 1.8,
@@ -53,7 +55,8 @@ export const ListaPaseadores = ({ items = [] }) => {
         {
           id: "w3",
           nombre: "Leo T.",
-          foto: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=240",
+          foto:
+            "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=240",
           rating: 5.0,
           reviews: 56,
           distanciaKm: 0.9,
@@ -69,9 +72,34 @@ export const ListaPaseadores = ({ items = [] }) => {
         },
       ];
 
+  // ---- Orden actual ----
+  // 'rating' (desc), 'distance' (asc), 'price' (asc)
+  const [sortBy, setSortBy] = useState("rating");
+
+  // ---- Data ordenada (memo) ----
+  const data = useMemo(() => {
+    const safe = (v, def = 0) =>
+      v === undefined || v === null || Number.isNaN(v) ? def : v;
+
+    const arr = [...baseData];
+    if (sortBy === "rating") {
+      // Mayor rating primero; si empata, más reviews
+      arr.sort((a, b) => {
+        const r = safe(b.rating) - safe(a.rating);
+        return r !== 0 ? r : safe(b.reviews) - safe(a.reviews);
+      });
+    } else if (sortBy === "distance") {
+      // Menor distancia primero
+      arr.sort((a, b) => safe(a.distanciaKm, Infinity) - safe(b.distanciaKm, Infinity));
+    } else if (sortBy === "price") {
+      // Menor precio primero
+      arr.sort((a, b) => safe(a.precioBase, Infinity) - safe(b.precioBase, Infinity));
+    }
+    return arr;
+  }, [baseData, sortBy]);
+
   return (
     <>
-      {/* Si tu Barranavbar admite el prop usuario, lo pasamos; si no, puedes dejar <Barranavbar /> */}
       <Barranavbar usuario={usuario} />
 
       <section className="lp-wrapper container">
@@ -81,13 +109,34 @@ export const ListaPaseadores = ({ items = [] }) => {
             Paseadores verificados cerca de ti
           </h3>
 
-          {/* Controles de orden (maqueta, sin lógica) */}
+          {/* Controles de orden */}
           <div className="d-flex gap-2 align-items-center">
             <span className="lp-label">Ordenar por:</span>
             <div className="btn-group btn-group-sm" role="group" aria-label="orden">
-              <button className="btn btn-light" type="button">Mejor calificados</button>
-              <button className="btn btn-light" type="button">Más cerca</button>
-              <button className="btn btn-light" type="button">Precio</button>
+              <button
+                className={`btn btn-light ${sortBy === "rating" ? "active" : ""}`}
+                type="button"
+                aria-pressed={sortBy === "rating"}
+                onClick={() => setSortBy("rating")}
+              >
+                Mejor calificados
+              </button>
+              <button
+                className={`btn btn-light ${sortBy === "distance" ? "active" : ""}`}
+                type="button"
+                aria-pressed={sortBy === "distance"}
+                onClick={() => setSortBy("distance")}
+              >
+                Más cerca
+              </button>
+              <button
+                className={`btn btn-light ${sortBy === "price" ? "active" : ""}`}
+                type="button"
+                aria-pressed={sortBy === "price"}
+                onClick={() => setSortBy("price")}
+              >
+                Precio
+              </button>
             </div>
           </div>
         </div>
@@ -137,7 +186,9 @@ export const ListaPaseadores = ({ items = [] }) => {
 
                 <div className="d-flex flex-wrap gap-2">
                   {(p.servicios ?? []).slice(0, 3).map((s, i) => (
-                    <span key={i} className="chip">{s}</span>
+                    <span key={i} className="chip">
+                      {s}
+                    </span>
                   ))}
                   {p.servicios && p.servicios.length > 3 && (
                     <span className="chip chip-muted">+{p.servicios.length - 3}</span>
@@ -182,9 +233,7 @@ export const ListaPaseadores = ({ items = [] }) => {
                 </div>
 
                 <div className="lp-ctas">
-                  <button className="btn btn-primary w-100" type="button">
-                    <i className="bi bi-calendar-plus me-1"></i> Reservar
-                  </button>
+               <ModalResevacionPaseador/>
                   <button className="btn btn-outline-secondary w-100" type="button">
                     <i className="bi bi-person-vcard me-1"></i> Ver perfil
                   </button>
