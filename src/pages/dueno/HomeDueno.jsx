@@ -1,5 +1,6 @@
 // src/pages/dueno/HomeDueno.jsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../css/HomeDueno.css';
 import { gsap } from 'gsap';
 import { Barranavbar } from "../../components/navbar/barranavbar";
@@ -14,16 +15,17 @@ import {
   LiveStatus,
   CalendarMini,
   MessagesPreview,
-  PetsSummary,
+
   PaymentsCard,
   HistoryTimeline,
-  PromosReferrals,
   SupportCard
 } from "../../components/DashboardDueno";
 
 
 
 export const HomeDueno = () => {
+
+  const navigate = useNavigate();
 
   const usuario = { nombreCompleto: 'Selenia Sanchez', username: 'seleinasanchez', rol: 'dueno' };
 
@@ -128,7 +130,12 @@ export const HomeDueno = () => {
     abrirChat(th);
   };
 
-  // ====== UI ======
+
+  const handleNavigate = () => {
+    navigate('/ListaPaseadores')
+  }
+ 
+
   return (
     <div ref={rootRef} className="home-dueno-container">
       <Barranavbar usuario={usuario} />
@@ -156,6 +163,7 @@ export const HomeDueno = () => {
   <button className="qa-btn" onClick={abrirNuevaSolicitud}>
         <i className="bi bi-clipboard-plus"></i> Nueva solicitud
       </button>
+      <button className=' btn botonListapaseo' onClick={() => handleNavigate()}><i class="fa-solid fa-magnifying-glass"></i>Buscar Paseador</button>
       </div>
     
       <div className="px-5 home-grid mt-3">
@@ -178,9 +186,8 @@ export const HomeDueno = () => {
 
           />
           <MessagesPreview threads={mensajesThreads} proxima={proxima} onChat={onChat} openThread={abrirChat} />
-          <PetsSummary mascotas={mascotas} />
+      
           <PaymentsCard pagos={pagos} />
-          <PromosReferrals code="ADOPTA10" onInvite={() => alert('Invita y gana')} />
           <SupportCard />
           <RequestList requests={requests} onCancel={onCancelRequest} />
         </div>

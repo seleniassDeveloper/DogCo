@@ -14,6 +14,7 @@ import { Chat } from './components/navbar/chat';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { ListaPaseadores } from './pages/dueno/listaPaseadores';
 
 const App = () => {
   return (
@@ -27,7 +28,8 @@ const App = () => {
           <Route path='Perfil' element={<Perfil />} />
           <Route path='/HomePaseador' element={<HomePaseador />} />
           <Route path='/HomeDueno' element={<HomeDueno />} />
-              <Route path='/Chat' element={<Chat />} />
+          <Route path='/ListaPaseadores' element={<ListaPaseadores/>}/>
+           <Route path='/Chat' element={<Chat />} />
       </Routes>
     </AuthProvider>
   );
