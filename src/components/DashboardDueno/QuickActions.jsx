@@ -9,7 +9,7 @@ const QuickActions = ({
   onRepeat = () => {},
   onAddPet = () => {},        // se llamará al guardar en el modal
   onAddAddress = () => {},    // se llamará al guardar en el modal
-  onApplyCoupon = () => {},
+ 
 }) => {
   const [isRepeatOpen, setIsRepeatOpen] = useState(false);
   const [isAddPetOpen, setIsAddPetOpen] = useState(false);
@@ -46,9 +46,7 @@ const QuickActions = ({
             <i className="bi bi-geo-alt" aria-hidden="true"></i> Agregar dirección
           </button>
 
-          <button className="qa-btn" onClick={onApplyCoupon} aria-label="Aplicar cupón">
-            <i className="bi bi-ticket" aria-hidden="true"></i> Aplicar cupón
-          </button>
+     
         </div>
       </div>
 

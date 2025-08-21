@@ -152,43 +152,16 @@ export const HomeDueno = () => {
       <div className="px-5 mt-3">
         <KPICards kpis={kpis} />
       </div>
-
+      <div className='d-flex addboton justify-content-end pe-5 pt-3' >
+  <button className="qa-btn" onClick={abrirNuevaSolicitud}>
+        <i className="bi bi-clipboard-plus"></i> Nueva solicitud
+      </button>
+      </div>
+    
       <div className="px-5 home-grid mt-3">
         {/* === Columna A === */}
         <div className="colA">
-          <section className="home-card" ref={heroRef}>
-            <div className="card-head">
-              <h3 className="card-title">Próxima reserva</h3>
-              {proxima && <span className={`badge state-${colorEstado(proxima.estado)}`}>{proxima.estado}</span>}
-            </div>
 
-            {!proxima ? (
-              <div className="empty">
-                <div className="empty-title">No tienes reservas próximas</div>
-                <button className="qa-btn" onClick={abrirNuevaSolicitud}>
-                  <i className="bi bi-clipboard-plus"></i> Nueva solicitud
-                </button>
-              </div>
-            ) : (
-              <div className="hero">
-                <div className="hero-row">
-                  <div className="hero-when"><i className="bi bi-calendar-event"></i> {formatDT(proxima.start)}</div>
-                  <div className="hero-type">{proxima.tipo}</div>
-                </div>
-                <div className="hero-row">
-                  <div className="hero-sitter"><i className="bi bi-chat-dots"></i> {proxima.cuidador}</div>
-                  <div className="hero-pets">Mascotas: {proxima.mascotas.join(', ')}</div>
-                </div>
-                <div className="hero-actions">
-                  <button className="qa-btn" onClick={() => onVerDetalles(proxima)}><i className="bi bi-check-circle"></i> Ver detalles</button>
-                  <button className="qa-btn" onClick={() => onReprogramar(proxima)}><i className="bi bi-calendar-event"></i> Reprogramar</button>
-                  <button className="qa-btn" onClick={() => onCancelar(proxima)}><i className="bi bi-x-circle"></i> Cancelar</button>
-                  <button className="qa-btn" onClick={() => onChat(proxima)}><i className="bi bi-chat-dots"></i> Chat</button>
-                  <button className="qa-btn" onClick={() => onPropina(proxima)}><i className="bi bi-plus-circle"></i> Agregar propina</button>
-                </div>
-              </div>
-            )}
-          </section>
 
           <LiveStatus proxima={proxima} etapaActual={1} />
           <CalendarMini onNew={abrirNuevaSolicitud} />
@@ -202,7 +175,7 @@ export const HomeDueno = () => {
             onRepeat={() => alert('Repetir última reserva')}
             onAddPet={() => alert('Añadir mascota')}
             onAddAddress={() => alert('Agregar dirección')}
-            onApplyCoupon={() => alert('Aplicar cupón')}
+
           />
           <MessagesPreview threads={mensajesThreads} proxima={proxima} onChat={onChat} openThread={abrirChat} />
           <PetsSummary mascotas={mascotas} />
