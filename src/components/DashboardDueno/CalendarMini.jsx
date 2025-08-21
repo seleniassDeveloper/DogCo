@@ -7,23 +7,18 @@ const SERVICES = [
   { id: "training",label: "Adiestramiento",  defaultDuration: 90,  price: 120000, color: "#f59e0b" },
 ];
 
-// Mock simple: genera slots por día según servicio
 function mockSlotsForDay(date, serviceId) {
   const d = new Date(date);
-  const day = d.getDay(); // 0=Dom .. 6=Sáb
-  // Ejemplo: no hay servicio fin de semana para paseo
+  const day = d.getDay();
   if (serviceId === "walk" && (day === 0 || day === 6)) return { slots: 0, disabled: true };
-  // Ejemplo: “Cuidado en casa” solo de lun-vie y menos slots
   if (serviceId === "sitting" && day === 0) return { slots: 0, disabled: true };
-
-  // Slots pseudo-aleatorios pero deterministas por día/servicio
   const seed = (d.getDate() + d.getMonth() + d.getFullYear() + serviceId.length) % 4;
   const slots = [0, 2, 3, 5][seed];
   return { slots, disabled: slots === 0 };
 }
 
 const formatDateLabel = (date) =>
-  date.toLocaleDateString("es-CO", { weekday: "short", day: "2-digit" }); // ej: "lun, 21"
+  date.toLocaleDateString("es-CO", { weekday: "long", day: "2-digit", month: "short" });
 
 const nextDays = (n = 7) => {
   const out = [];
@@ -37,7 +32,7 @@ const nextDays = (n = 7) => {
 };
 
 const CalendarMini = ({ onNew = () => {} }) => {
-  const [service, setService] = useState(SERVICES[0]); // servicio activo
+  const [service, setService] = useState(SERVICES[0]);
   const days = useMemo(() => nextDays(7), []);
   const currency = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 });
 
@@ -53,89 +48,61 @@ const CalendarMini = ({ onNew = () => {} }) => {
         </h3>
       </div>
 
-      <div className="calendar-mini">
-
-        {/* Controles del calendario (ahora dentro) */}
-        <div className="cal-controls" role="tablist" aria-label="Selecciona un tipo de servicio">
-          {SERVICES.map((s) => (
-            <button
-              key={s.id}
-              role="tab"
-              aria-selected={service.id === s.id}
-              className={`chip ${service.id === s.id ? "is-active" : ""}`}
-              style={service.id === s.id ? { borderColor: s.color, color: s.color } : {}}
-              onClick={() => setService(s)}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Info del servicio seleccionado */}
-        <div className="cal-service-info">
-          <span className="badge" style={{ background: service.color }}>
-            {service.label}
-          </span>
-          <span className="muted">Duración sugerida: {service.defaultDuration} min</span>
-          <span className="muted">Precio estimado: {currency.format(service.price)}</span>
-        </div>
-
-        {/* Semana compacta */}
-        <div className="calendar-row">
-          {days.map((d, idx) => {
-            const { slots, disabled } = mockSlotsForDay(d, service.id);
-            const isToday = idx === 0;
-            return (
-              <div
-                key={+d}
-                className={`calendar-day-detail ${disabled ? "disabled" : ""} ${isToday ? "today" : ""}`}
-                aria-disabled={disabled}
-              >
-                <div className="cdd-head">
-                  <div className="cdd-date">{formatDateLabel(d)}</div>
-                  <div className={`cdd-slots ${slots > 0 ? "ok" : "ko"}`}>
-                    {slots > 0 ? `${slots} disp.` : "Sin cupo"}
-                  </div>
-                </div>
-
-                <div className="cdd-body">
-                  <div className="cdd-line">
-                    <i className="bi bi-clock"></i>
-                    <span>{service.defaultDuration} min</span>
-                  </div>
-                  <div className="cdd-line">
-                    <i className="bi bi-cash-coin"></i>
-                    <span>{currency.format(service.price)}</span>
-                  </div>
-                  <div className="cdd-line tip" title="Zonas con mayor disponibilidad por la tarde">
-                    <i className="bi bi-geo-alt"></i>
-                    <span>Disponibilidad por la tarde</span>
-                  </div>
-                </div>
-
-                <div className="cdd-foot">
-                  <button
-                    className="btn-cta"
-                    disabled={disabled}
-                    onClick={() => handleChoose(d)}
-                    style={{ background: service.color }}
-                    aria-label={`Programar ${service.label} el ${formatDateLabel(d)}`}
-                  >
-                    Programar
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Leyenda */}
-        <div className="cal-legend">
-          <span><span className="dot ok"></span> Disponible</span>
-          <span><span className="dot ko"></span> Sin cupo</span>
-          <span><span className="dot today"></span> Hoy</span>
-        </div>
+      {/* Controles dentro */}
+      <div className="cal-controls">
+        {SERVICES.map((s) => (
+          <button
+            key={s.id}
+            className={`chip ${service.id === s.id ? "is-active" : ""}`}
+            style={service.id === s.id ? { borderColor: s.color, color: s.color } : {}}
+            onClick={() => setService(s)}
+          >
+            {s.label}
+          </button>
+        ))}
       </div>
+
+      <div className="cal-service-info">
+        <span className="badge" style={{ background: service.color }}>
+          {service.label}
+        </span>
+        <span className="muted">Duración: {service.defaultDuration} min</span>
+        <span className="muted">Precio: {currency.format(service.price)}</span>
+      </div>
+
+      {/* Lista en vez de grilla */}
+      <ul className="calendar-list">
+        {days.map((d, idx) => {
+          const { slots, disabled } = mockSlotsForDay(d, service.id);
+          const isToday = idx === 0;
+          return (
+            <li
+              key={+d}
+              className={`cal-item ${disabled ? "disabled" : ""} ${isToday ? "today" : ""}`}
+            >
+              <div className="cal-date">
+                <strong>{formatDateLabel(d)}</strong>
+                {isToday && <span className="badge today">Hoy</span>}
+              </div>
+              <div className="cal-info">
+                {slots > 0 ? (
+                  <span className="ok">{slots} cupos disponibles</span>
+                ) : (
+                  <span className="ko">Sin cupo</span>
+                )}
+              </div>
+              <button
+                className="btn-cta"
+                disabled={disabled}
+                onClick={() => handleChoose(d)}
+                style={{ background: service.color }}
+              >
+                Programar
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };
