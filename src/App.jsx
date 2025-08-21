@@ -15,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { ListaPaseadores } from './pages/dueno/listaPaseadores';
+import { PerfilPaseadorTipoInsta } from './pages/perfilPaseadorTipoInsta';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/HomeDueno' element={<HomeDueno />} />
           <Route path='/ListaPaseadores' element={<ListaPaseadores/>}/>
            <Route path='/Chat' element={<Chat />} />
+           <Route path='/PerfilPaseadorTipoInsta' element={<PerfilPaseadorTipoInsta />} />
       </Routes>
     </AuthProvider>
   );

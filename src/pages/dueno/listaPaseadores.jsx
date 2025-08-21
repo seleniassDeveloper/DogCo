@@ -1,6 +1,7 @@
 // src/pages/dueno/ListaPaseadores.jsx
 import React, { useMemo, useState } from "react";
 import { Barranavbar } from "../../components/navbar/barranavbar";
+import { useNavigate } from "react-router-dom";
 import { ModalResevacionPaseador } from "../../components/DashboardDueno/modales/modalResevaconPaseador";
 
 export const ListaPaseadores = ({ items = [] }) => {
@@ -12,6 +13,8 @@ export const ListaPaseadores = ({ items = [] }) => {
       return null;
     }
   })();
+
+  const navigate = useNavigate();
 
   // Demo local si no llegan items
   const baseData = items.length
@@ -97,6 +100,10 @@ export const ListaPaseadores = ({ items = [] }) => {
     }
     return arr;
   }, [baseData, sortBy]);
+
+  const handlePerfil = () => {
+    navigate('/PerfilPaseadorTipoInsta')
+  }
 
   return (
     <>
@@ -234,8 +241,8 @@ export const ListaPaseadores = ({ items = [] }) => {
 
                 <div className="lp-ctas">
                <ModalResevacionPaseador/>
-                  <button className="btn btn-outline-secondary w-100" type="button">
-                    <i className="bi bi-person-vcard me-1"></i> Ver perfil
+                  <button className="btn btn-outline-secondary w-100" onClick={() => handlePerfil()} type="button">
+                    <i className="bi bi-person-vcard me-1" ></i> Ver perfil
                   </button>
                   <button className="btn btn-outline-dark w-100" type="button">
                     <i className="bi bi-chat-dots me-1"></i> Chat

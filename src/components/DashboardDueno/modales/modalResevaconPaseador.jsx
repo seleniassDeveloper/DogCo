@@ -1,13 +1,8 @@
-// src/components/ModalResevacionPaseador.jsx
+
 import { useState, useMemo } from "react";
 import { Modal, Button, Form, Row, Col, InputGroup } from "react-bootstrap";
 
-/**
- * Props:
- * - paseador?: { id, nombre }
- * - mascotas?: [{ id, nombre, especie, edad }]
- * - direcciones?: [{ id, etiqueta, direccion }]
- */
+
 export const ModalResevacionPaseador = ({ paseador, mascotas = [], direcciones = [] }) => {
   const [show, setShow] = useState(false);
 
