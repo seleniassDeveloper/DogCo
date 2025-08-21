@@ -202,3 +202,30 @@
 @media (max-width: 575px) {
   .insta-grid { grid-template-columns: repeat(3, 1fr); gap: 3px; }
 }
+/* ----- Bio extendida (datos personales) ----- */
+.insta-info {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: #444;
+}
+
+.info-item i {
+  color: #ff8a00; /* naranja de acento */
+  margin-top: 2px;
+}
+
+.info-item strong {
+  color: #222;
+  font-weight: 600;
+}
