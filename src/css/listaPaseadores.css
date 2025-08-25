@@ -1,0 +1,18 @@
+.lp-reviews { border-top: 1px solid rgba(13,27,42,.08); padding-top: 8px; }
+.lp-reviews-head { font-weight: 700; color: #0d1b2a; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.lp-reviews-count { color: #6b7280; font-weight: 600; margin-left: 4px; }
+
+.lp-review-empty {
+  font-size: .9rem; color: #6b7280; background: #f8fafc;
+  border: 1px dashed #e5e7eb; border-radius: 10px; padding: 8px 10px;
+}
+.lp-review-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.lp-review-item {
+  border: 1px solid rgba(13,27,42,.08); background: #fff;
+  border-radius: 10px; padding: 8px 10px;
+}
+.lp-review-top { display: flex; gap: 8px; align-items: center; font-size: .9rem; }
+.lp-review-author { font-weight: 700; color: #0d1b2a; }
+.lp-review-score { color: #f59e0b; font-weight: 700; }
+.lp-review-date { margin-left: auto; color: #6b7280; font-size: .82rem; }
+.lp-review-text { color: #374151; font-size: .95rem; margin-top: 4px; }
