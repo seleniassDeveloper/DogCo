@@ -6,17 +6,10 @@ import { ModalResevacionPaseador } from "../../components/DashboardDueno/modales
 
 export const ListaPaseadores = ({ items = [] }) => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const verPerfil = (p) =>  navigate(`/chat/${threadId}`, {
-  state: {
-    peer: { id: threadId, nombre, avatarUrl, rol },
-    threads: listaDeThreads // <- un array con tus hilos para poblar la bandeja
-  }
-});
+  const verPerfil = (p) => navigate("/perfil-paseador", { state: { paseador: p } });
 
- 
-  
 
   const handleChat = (p) => {
     // armamos la info mínima del “peer” para el header del chat
@@ -278,9 +271,9 @@ export const ListaPaseadores = ({ items = [] }) => {
                   <button className="btn btn-outline-secondary w-100" type="button" onClick={() => verPerfil(p)}>
                     <i className="bi bi-person-vcard me-1"></i> Ver perfil
                   </button>
-                   <button className="btn btn-outline-dark w-100" type="button" onClick={() => handleChat(p)}>
-          <i className="bi bi-chat-dots me-1"></i> Chat
-        </button>
+                  <button className="btn btn-outline-dark w-100" type="button" onClick={() => handleChat(p)}>
+                    <i className="bi bi-chat-dots me-1"></i> Chat
+                  </button>
                   <button className="btn btn-outline-warning w-100" type="button">
                     <i className="bi bi-bookmark me-1"></i> Guardar
                   </button>

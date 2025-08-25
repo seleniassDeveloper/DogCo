@@ -134,7 +134,7 @@ export const HomeDueno = () => {
   const handleNavigate = () => {
     navigate('/ListaPaseadores')
   }
- 
+
 
   return (
     <div ref={rootRef} className="home-dueno-container">
@@ -156,16 +156,16 @@ export const HomeDueno = () => {
         {/* <OwnerProfileCard owner={{ ...usuario, foto: null, zona: 'Palermo', rating: 4.8 }} /> */}
       </div>
 
-      <div className="px-5 mt-3">
+    
+      <div className='d-flex addboton justify-content-end pe-5 pt-3' >
+        <button className="qa-btn" onClick={abrirNuevaSolicitud}>
+          <i className="bi bi-clipboard-plus"></i> Nueva solicitud
+        </button>
+        <button className=' btn mx-3 botonListapaseo' onClick={() => handleNavigate()}><i class="fa-solid fa-magnifying-glass"></i>Buscar Paseador</button>
+      </div>
+  <div className="px-5 mt-3">
         <KPICards kpis={kpis} />
       </div>
-      <div className='d-flex addboton justify-content-end pe-5 pt-3' >
-  <button className="qa-btn" onClick={abrirNuevaSolicitud}>
-        <i className="bi bi-clipboard-plus"></i> Nueva solicitud
-      </button>
-      <button className=' btn mx-3 botonListapaseo' onClick={() => handleNavigate()}><i class="fa-solid fa-magnifying-glass"></i>Buscar Paseador</button>
-      </div>
-    
       <div className="px-5 home-grid mt-3">
         {/* === Columna A === */}
         <div className="colA">
@@ -186,7 +186,7 @@ export const HomeDueno = () => {
 
           />
           <MessagesPreview threads={mensajesThreads} proxima={proxima} onChat={onChat} openThread={abrirChat} />
-      
+
           <PaymentsCard pagos={pagos} />
           <SupportCard />
           <RequestList requests={requests} onCancel={onCancelRequest} />
