@@ -59,6 +59,7 @@ img { max-width:100%; height:auto; display:block; }
 
 /* ===== Cards ===== */
 .home-card{
+  
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
@@ -576,9 +577,10 @@ i.bi{ font-style:normal; vertical-align:-1px; }
 
 /* ===== Owner card (moderno) ===== */
 .owner-card{
-  display: grid;
+ display: flex;
+ justify-content: space-between;
   gap: 14px;
-  padding: 16px;
+ 
 }
 
 /* Top row: identidad + acciones */
@@ -648,7 +650,14 @@ i.bi{ font-style:normal; vertical-align:-1px; }
 }
 
 /* Acción Editar */
-.owner-actions{ display: flex; align-items: center; gap: 8px; }
+.owner-actions{ 
+  display: flex; 
+  align-items: center; 
+  /* border: red solid 1px; */
+  gap: 8px; 
+}
+
+
 .btn-ghost{
   background: #fff; color: var(--text);
   border: 1px solid var(--border);
@@ -677,7 +686,10 @@ i.bi{ font-style:normal; vertical-align:-1px; }
   padding: 10px;
 }
 
-.pet-media{ display: grid; place-items: center; }
+.pet-media{ 
+  display: grid;
+   place-items: center; 
+  }
 .pet-avatar-lg{
   width: 72px; height: 72px; border-radius: 16px; object-fit: cover;
   box-shadow: 0 6px 16px rgba(0,0,0,.06);

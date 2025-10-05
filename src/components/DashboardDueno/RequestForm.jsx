@@ -231,7 +231,7 @@ const RequestForm = ({ open, onClose, onSubmit, mascotas = [] }) => {
     [cityOptions, form.ciudad, form.pais]
   );
 
-  /* ------------ UI ------------ */
+
   return (
     <Modal show={open} onHide={onClose} centered backdrop="static" keyboard>
       <Form onSubmit={handleSubmit} autoComplete="off">

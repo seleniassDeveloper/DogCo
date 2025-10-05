@@ -1,0 +1,114 @@
+/* Paleta heredada del dashboard */
+:root{
+  --ink:#111827; --basalt:#1F2430; --bone:#F7F2EA; --line:#E5E7EB;
+  --card:#FFFFFF; --muted:#6B7280;
+  --amber:#D97706; --amber-2:#B45309;
+}
+
+.formdueno-page{
+  padding-block: 18px 28px;
+}
+
+/* Header */
+.fd-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  margin-bottom: 14px;
+}
+.fd-title h1{
+  margin:0; font-weight:900; letter-spacing:-.01em; color:var(--basalt);
+  font-size: clamp(22px, 3vw, 28px);
+}
+.fd-title .muted{ margin:.25rem 0 0; color:#374151; }
+
+/* Botones “pill” como tu UI */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 14px; border-radius:12px; font-weight:800; border:1px solid var(--line);
+  background:#fff; color:var(--ink);
+}
+.btn.primary{
+  background:linear-gradient(180deg,#F59E0B,var(--amber)); color:#fff; border:0;
+  box-shadow: 0 10px 22px rgba(217,119,6,.28), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.btn.ghost{ background:#fff; color:var(--ink); }
+
+.pill{ border-radius:999px; }
+
+/* Card */
+.fd-card{
+  background:linear-gradient(180deg,#FFFFFF,#FFFEFC);
+  border:1px solid rgba(31,36,48,.08);
+  border-radius:16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.06);
+  padding:16px;
+}
+
+/* Grid de formulario: 2 columnas */
+.fd-grid{
+  display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px;
+}
+.fd-col{ display:grid; gap:12px; }
+
+/* Campos */
+.field{ display:grid; gap:6px; }
+.flabel{
+  font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+  color:#6b7280; font-weight:800;
+}
+.finput, .fselect, .ftextarea, .finput input{
+  width:100%; border:1px solid var(--line); border-radius:12px;
+  padding:10px 12px; font: inherit; color:var(--ink); background:#fff;
+}
+.ftextarea{ resize:vertical; }
+.help{ margin:4px 0 0; color:#6b7280; font-size:12px; }
+
+/* input con @ */
+.finput.with-addon{
+  display:grid; grid-template-columns: 36px 1fr; align-items:center; padding:0;
+}
+.finput.with-addon .addon{
+  display:flex; align-items:center; justify-content:center;
+  color:#6b7280; font-weight:900;
+}
+.finput.with-addon input{
+  border:0; outline:none; padding:10px 12px; border-left:1px solid var(--line);
+  border-radius: 0 12px 12px 0;
+}
+
+/* filas */
+.fg-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+/* Avatar */
+.avatar-uploader{ display:flex; align-items:center; gap:12px; }
+.avatar-preview{
+  width:64px; height:64px; border-radius:14px; overflow:hidden; border:1px solid var(--line);
+  background:#f9fafb; display:grid; place-items:center; font-weight:900; color:#374151;
+}
+.avatar-preview img{ width:100%; height:100%; object-fit:cover; }
+.avatar-fallback{ font-size:18px; }
+
+/* Toggles simples */
+.toggles{ display:grid; gap:8px; }
+.titem{
+  display:flex; align-items:center; gap:8px; padding:8px 10px;
+  border:1px solid var(--line); border-radius:10px; background:#fff;
+}
+
+/* Chips */
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  display:inline-block; font-size:12px; font-weight:800; color:#111827;
+  padding:6px 10px; border-radius:999px;
+  background:linear-gradient(180deg,#F7F7F7,#EFEFEF); border:1px solid #E2E8F0;
+}
+.chip-muted{ opacity:.8; }
+
+/* Separador y acciones laterales */
+.sep{ height:1px; background:var(--line); margin:8px 0; }
+.fd-side-actions{ display:flex; gap:10px; justify-content:flex-end; }
+
+/* Responsive */
+@media (max-width: 992px){
+  .fd-grid{ grid-template-columns:1fr; }
+  .fd-side-actions{ justify-content:flex-start; }
+} 

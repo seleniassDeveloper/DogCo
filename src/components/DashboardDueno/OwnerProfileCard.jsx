@@ -1,6 +1,11 @@
 import React from "react";
 
 const OwnerProfileCard = ({ onEdit }) => {
+
+    const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
   // Datos mock (puedes reemplazarlos por props si luego vienen de Firestore/API)
   const owner = {
     nombreCompleto: "Selenia Sánchez",
@@ -61,7 +66,9 @@ const OwnerProfileCard = ({ onEdit }) => {
               </span>
 
               <span
-                className={`owner-pill ${disponible ? "is-online" : "is-offline"}`}
+                className={`owner-pill ${
+                  disponible ? "is-online" : "is-offline"
+                }`}
               >
                 <span className="dot" />
                 {disponible ? "Disponible" : "No disponible"}
@@ -82,7 +89,7 @@ const OwnerProfileCard = ({ onEdit }) => {
 
         <div className="owner-actions">
           <button className="btn-ghost" onClick={onEdit}>
-            <i className="bi bi-pencil-square" /> Editar perfil
+            <i className="bi bi-pencil-square" />
           </button>
         </div>
       </div>
@@ -102,9 +109,17 @@ const OwnerProfileCard = ({ onEdit }) => {
           </div>
 
           <div className="pet-body">
-            <div className="pet-head">
-              <h5 className="pet-name">{nombreMascota || "Mi mascota"}</h5>
-              <span className="pet-label">Perfil de mascota</span>
+            <div className="d-flex">
+              {" "}
+              <div className="pet-head">
+                <h5 className="pet-name">{nombreMascota || "Mi mascota"}</h5>
+                <span className="pet-label">Perfil de mascota</span>
+              </div>
+              <div className="owner-actions d-flex justify-content-end ms-4">
+                <button className="btn-ghost" onClick={onEdit}>
+                  <i className="bi bi-pencil-square" />
+                </button>
+              </div>
             </div>
 
             <div className="pet-meta-row">

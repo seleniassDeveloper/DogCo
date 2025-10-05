@@ -1,0 +1,100 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  OWNER
+  WALKER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(OWNER)
+  avatarUrl String?
+  createdAt DateTime @default(now())
+
+  pets      Pet[]
+  reviews   Review[]   @relation("AuthorReviews")
+  bookings  Booking[]  @relation("OwnerBookings")
+  walker    Walker?
+}
+
+model Walker {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id])
+
+  bio           String?
+  priceBase     Int       @default(8000)
+  rating        Float     @default(0)
+  zones         Json?     // <- SIN default; trátalo como [] en el código
+  punctuality   Int       @default(95)
+  responseTime  String?
+
+  reviews       Review[]  @relation("WalkerReviews")
+  bookings      Booking[]
+}
+
+model Pet {
+  id        String   @id @default(cuid())
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+
+  name      String
+  species   String
+  breed     String?
+  age       Int?
+  photoUrl  String?
+
+  bookings  Booking[] // <-- lado opuesto de Booking.pet
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+
+  ownerId   String
+  owner     User     @relation("OwnerBookings", fields: [ownerId], references: [id])
+
+  walkerId  String?
+  walker    Walker?  @relation(fields: [walkerId], references: [id])
+
+  petId     String
+  pet       Pet      @relation(fields: [petId], references: [id])
+
+  type      String
+  modality  String
+  hours     Int?
+  start     DateTime?
+  end       DateTime?
+
+  country   String?
+  state     String?
+  city      String?
+  notes     String?
+
+  status    String   @default("Publicada")
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+
+  walkerId  String
+  walker    Walker   @relation("WalkerReviews", fields: [walkerId], references: [id])
+
+  authorId  String
+  author    User     @relation("AuthorReviews", fields: [authorId], references: [id])
+
+  score     Int
+  comment   String
+  createdAt DateTime @default(now())
+}
