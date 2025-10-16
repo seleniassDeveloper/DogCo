@@ -55,7 +55,7 @@ export const KPICards = ({ kpis = {} }) => {
 
         {/* KPI 2: Paseos este mes */}
         <div className="kpi-card">
-          <div className="kpi-title">Paseos este mes</div>
+          <div className="kpi-title">Paseos realizados</div>
           <div className="kpi-value">{paseosEsteMes}</div>
         </div>
 

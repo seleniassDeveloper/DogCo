@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
-import { Barranavbar } from "../../components/navbar/barranavbar";
 import "./FormPerfilDueno.css";
+import { Barranavbar } from "../../components/navbar/barranavbar";
 
-export default function FormPerfilDueno() {
+export default function EditarPerfilDueno() {
   // Traer usuario como en tus otras páginas (fallback seguro)
   const usuario = useMemo(() => {
     try { return JSON.parse(localStorage.getItem("usuario") || "null"); }

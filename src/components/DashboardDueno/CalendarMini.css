@@ -1,0 +1,125 @@
+/* Card base compacta */
+.calendar-card.compact{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  background:#fff;
+  padding:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* Header */
+.calendar-card .card-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:8px;
+}
+.calendar-card .card-title{
+  margin:0; font-size:15px; font-weight:800; color:#111827; letter-spacing:.01em;
+}
+.calendar-card .card-title i{ margin-right:6px; }
+
+/* Chips servicio */
+.cal-controls{
+  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;
+}
+.chip{
+  padding:6px 10px; border-radius:999px; border:1px solid #e5e7eb; background:#fff;
+  font-weight:700; font-size:12px; cursor:pointer;
+}
+.chip.is-active{ background:#f9fafb; }
+
+/* Resumen servicio */
+.cal-service-info{
+  display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;
+}
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 8px; font-size:11px; font-weight:800; color:#fff; border-radius:999px;
+}
+.badge.soft{
+  background:#eef2ff; color:#3730a3; border:1px solid #e0e7ff;
+}
+.badge.ghost{
+  background:#fff; color:#111827; border:1px solid #e5e7eb;
+}
+.badge.today{ background:#111827; }
+
+/* Lista días */
+.calendar-list{
+  list-style:none; padding:0; margin:0; display:grid; gap:10px;
+}
+.cal-item{
+  border:1px solid #eef2f7; border-radius:10px; padding:10px;
+  background:linear-gradient(180deg,#fff,#fdfdfd);
+}
+.cal-item.today{ box-shadow:0 2px 10px rgba(0,0,0,.04); }
+.cal-item.disabled{ opacity:.7; }
+
+/* Fecha y contador */
+.cal-date{
+  display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;
+}
+.cal-date strong{
+  font-size:13px; color:#111827; text-transform:capitalize;
+}
+.muted{ color:#6b7280; }
+.muted.xs{ font-size:12px; }
+
+/* Scroller de paseadores */
+.walker-scroller{
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;
+  scroll-snap-type: x proximity;
+}
+.walker-scroller::-webkit-scrollbar{ height:6px; }
+.walker-scroller::-webkit-scrollbar-thumb{ background:#e5e7eb; border-radius:999px; }
+
+/* Card de paseador (compacta) */
+.w-card{
+  min-width: 280px;
+  max-width: 320px;
+  border:1px solid #eaecef; border-radius:10px; background:#fff;
+  padding:8px;
+  display:flex; flex-direction:column; gap:8px;
+  scroll-snap-align: start;
+}
+.w-card.sm{ min-width: 240px; max-width: 280px; }
+
+/* Fila superior */
+.w-row{ display:flex; gap:8px; align-items:flex-start; }
+.w-avatar{
+  width:36px; height:36px; border-radius:50%;
+  display:grid; place-items:center; font-weight:900; color:#fff;
+  background:#111827; flex:0 0 36px;
+}
+.w-main{ min-width:0; flex:1; }
+.w-topline{
+  display:flex; justify-content:space-between; align-items:center; gap:8px;
+}
+.w-name{
+  margin:0; font-size:13px; font-weight:800; color:#111827; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.w-rating{ display:inline-flex; align-items:center; gap:4px; }
+.stars .bi{ font-size:12px; color:#f59e0b; }
+.w-rating-num{ font-size:12px; color:#6b7280; }
+
+/* Tags y meta */
+.w-tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:4px; }
+.w-meta{
+  margin-top:4px; display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:#374151;
+}
+.w-meta i{ margin-right:4px; }
+
+/* Botón CTA compacto */
+.btn-cta{
+  appearance:none; border:0; color:#fff; font-weight:900;
+  padding:8px 10px; border-radius:10px; cursor:pointer;
+}
+.btn-cta.xs{
+  align-self:flex-end; font-size:12px; padding:6px 10px; border-radius:8px;
+}
+
+/* Utilidades */
+.btn.pill.primary{
+  background:#111827; color:#fff; border:0; border-radius:999px; padding:8px 12px;
+}

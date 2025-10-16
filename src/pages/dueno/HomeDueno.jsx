@@ -292,7 +292,7 @@ export const HomeDueno = () => {
         </button>
       </div>
       <div className="px-5 mt-3">
-        <KPICards kpis={kpis} />
+        {/* <KPICards kpis={kpis} /> */}
       </div>
       <div className="px-5 home-grid mt-3">
         {/* === Columna A === */}

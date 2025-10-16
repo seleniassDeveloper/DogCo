@@ -831,3 +831,11 @@ i.bi{ font-style:normal; vertical-align:-1px; }
 .botonListapaseo:hover{
   background-color:#072b53!important;;
 }
+
+/* lista de paseadores por día */
+.cal-walkers { margin-top: 8px; }
+.walker-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.walker-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.w-info { display: flex; gap: 10px; align-items: baseline; }
+.w-name { font-weight: 700; }
+.w-meta { color: #6b7280; font-size: .95rem; }
